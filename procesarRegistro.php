@@ -33,7 +33,7 @@ $comm->execute();
 $db->close();
 
 include('./header.php');
-echo "<div class='w3-grey w3-container' style='min-height:500px;'>Se ha registrado correctamente</div>";
+echo "<div class='w3-grey w3-container' style='min-height:500px; background: url(https://i.pinimg.com/originals/24/b9/47/24b9478ec632f3657d4ac19ec9853397.jpg);'>Se ha registrado correctamente</div>";
 include('./footer.php');
 ?>
 

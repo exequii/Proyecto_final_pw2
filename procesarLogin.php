@@ -44,7 +44,7 @@ $cantidadResultados = $usuarioLogin->num_rows; // si esto da 1, significa que en
 include('./header.php');
 
 if($cantidadResultados >=1){
-    echo "<div class='w3-grey w3-container' style='min-height:500px;'>Iniciaste Sesion Correctamente<br>";
+    echo "<div class='w3-grey w3-container' style='min-height:500px;  background: url(https://i.pinimg.com/originals/24/b9/47/24b9478ec632f3657d4ac19ec9853397.jpg);'>Iniciaste Sesion Correctamente<br>";
     while($fila = $usuarioLogin->fetch_assoc()){
         echo "El ID del usuario ingresado es: ";
         echo $fila["idusuario"] . "<br>";
