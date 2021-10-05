@@ -25,8 +25,8 @@ if($cantidadResultados == 1){
     //compruebo la clave
     if($password == $usuario['clave']){
         $_SESSION['usuario'] = $usuario;
-//        var_dump($_SESSION['usuario']);
-//        die();
+        header("Location: index.php");
+
     } else {
         $_SESSION['errores'] = "El usuario o clave ingresados no existe";
         var_dump($_SESSION['errores']);
@@ -34,6 +34,7 @@ if($cantidadResultados == 1){
     }
 }else {
     $_SESSION['errores'] = "El usuario o clave ingresados no existe";
+    header("Location: login.php");
+
 }
 
-header("Location: login.php");

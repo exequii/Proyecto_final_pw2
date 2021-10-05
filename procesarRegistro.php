@@ -15,7 +15,7 @@ if($password == $repitePassword) {
     header('Location: registro.php');
     $_SESSION['errores'] = "Las contraseñas no coinciden";
 
-
 }
 
 $db->close();
+header('Location: login.php');
