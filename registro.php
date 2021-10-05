@@ -71,10 +71,30 @@
                 />
               </div>
             </div>
+              <div class="w3-row-padding" style="margin: 8px -16px">
+                  <div class="w3-half w3-margin-bottom" style="width: 100%">
+                      <label for="clave"><i class="fa fa-male"></i> Repite clave:</label>
+                      <input
+                              class="w3-input w3-border"
+                              type="password"
+                              placeholder="Ingrese su clave"
+                              name="repiteClave"
+                              required
+                      />
+                  </div>
+              </div>
             <button class="w3-button w3-dark-grey" type="submit">
               <i class="fa fa-search w3-margin-right"></i> Registrarse
             </button>
+              <!-- Mostrar errores -->
+              <?php if(isset($_SESSION['errores'])): ?>
+                  <div class="w3-panel w3-red">
+                      <?= $_SESSION['errores'] ?>
+                  </div>
+              <?php endif; ?>
           </form>
+<!--            Borrar errores-->
+            <?php borrarErrores(); ?>
         </div>
       </div>
     </header>

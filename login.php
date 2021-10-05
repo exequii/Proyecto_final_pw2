@@ -74,8 +74,16 @@
             <button class="w3-button w3-dark-grey" type="submit">
               <i class="fa fa-search w3-margin-right"></i> Iniciar Sesion
             </button>
+              <!-- Errores -->
+              <?php if(isset($_SESSION['errores'])): ?>
+                  <div class="w3-panel w3-red">
+                      <?= $_SESSION['errores'] ?>
+                  </div>
+              <?php endif; ?>
           </form>
         </div>
+<!--       Borrar errores-->
+          <?php borrarErrores(); ?>
       </div>
     </header>
 
