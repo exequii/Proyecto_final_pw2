@@ -19,3 +19,5 @@ if($password == $repitePassword) {
 
 $db->close();
 header('Location: login.php');
+
+?>

@@ -37,11 +37,13 @@
     >Registro</a
   >
   <a href="#contact" class="w3-bar-item w3-button w3-mobile">Contacto</a>
+
     <?php if (isset($_SESSION['usuario'])){
         echo '<a href = "usuario.php" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">' .
-$_SESSION['usuario']['usuario'] . '</a>';
+                        $_SESSION['usuario']['usuario'] . '</a>';
     }else {
         echo '<a href = "login.php" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile" > Login</a>';
     }
     ?>
+
 </div>
