@@ -23,4 +23,12 @@ class MyDatabase{
 
         return mysqli_fetch_all($databaseResult,MYSQLI_ASSOC);
     }
+
+    public function insert($sql){
+        $this->connection->query($sql);
+        $this->connection->close();
+        return "funciono";
+        // $comm = mysqli_prepare($this->connection, $sql);
+        //$comm->execute();
+    }
 }
