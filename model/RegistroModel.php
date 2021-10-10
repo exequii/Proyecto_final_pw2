@@ -10,8 +10,10 @@ class RegistroModel
 
     function setUsuario($email,$password,$repitePassword,$rol){
         if($password == $repitePassword) {
-        $SQL = "INSERT INTO usuario (usuario, clave,rol) VALUES ('".$email."','".$password."','".$rol."')";
-        $this->database->insert($SQL);
+        //$SQL = "INSERT INTO usuario (usuario, clave,rol) VALUES ('".$email."','".$password."')";
+        $SQL = "INSERT INTO usuario (usuario, clave) VALUES (?,?)";
+        $this->database->insert($SQL,$email,$password);
+        echo "Se ha registrado correctamente";
         }
         else{
             echo "Las contraseñas no coinciden";

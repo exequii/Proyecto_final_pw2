@@ -24,11 +24,15 @@ class MyDatabase{
         return mysqli_fetch_all($databaseResult,MYSQLI_ASSOC);
     }
 
-    public function insert($sql){
-        $this->connection->query($sql);
-        $this->connection->close();
-        return "funciono";
-        // $comm = mysqli_prepare($this->connection, $sql);
-        //$comm->execute();
+    public function insert($sql,$usuario,$clave){
+        //$this->connection->__construct();
+        //$consulta2 = "INSERT INTO usuario (usuario, clave) VALUES (? , ?)";
+        $consulta = $sql;
+        $comm = $this->connection->prepare($consulta);
+
+        $comm->bind_param("ss",$usuario, $clave); //ss string , ssi integer , ssb bolean
+        $comm->execute();
+
+        //$this->connection->close();
     }
 }

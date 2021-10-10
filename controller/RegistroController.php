@@ -24,7 +24,7 @@ class RegistroController{
 
         $this->registroModel->setUsuario($data["usuario"], $data["clave"], $data["repiteClave"], $data["rol"]);
 
-        echo $this->printer->render( "view/inicioView.html", $data);
+        echo $this->printer->render( "view/inicioView.html");
     }
 }
 
