@@ -11,3 +11,5 @@ if($db->connect_error){
     echo "Ha ocurrido un error" . $db->connect_error;
 }
 session_start();
+
+?>
