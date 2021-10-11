@@ -21,9 +21,26 @@ class LoginController{
         $data["usuario"] = $_POST["usuario"];
         $data["clave"] = $_POST["clave"];
 
+
         $usuario = $this->loginModel->getUsuario($data["usuario"],$data["clave"]);
 
-        echo $this->printer->render( "view/loginView.html", $usuario);
+        if($usuario != null) {
+            $_SESSION['usuario'] = $usuario;
+            header("Location: /proyecto-final-pw2/index.php");
+        }
+        else{
+            $_SESSION['errores'] = "El usuario ingresado no existe";
+            header("Location: /proyecto-final-pw2/login");
+
+        }
+//        echo $this->printer->render( "view/inicioView.html", $usuario);
+    }
+    function logout(){
+        if(isset($_SESSION['usuario'])){
+            session_destroy();
+        }
+
+        header('Location: /proyecto-final-pw2/index.php');
     }
 }
 

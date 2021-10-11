@@ -14,8 +14,7 @@ class LoginModel
         // if($this->database->error){
         //     echo "La Consulta produjo un error " .$this->database->error;
         //}
-        if($usuario != null) echo "FUNCIONA" .var_dump($usuario). "";
-        else echo "El usuario ingresado no existe";
+
         return $usuario;
     }
 }

@@ -38,7 +38,15 @@
   >
   <a href="/inicio#contact" class="w3-bar-item w3-button w3-mobile">Contacto</a>
 
-  <a href = "/login" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">Login</a>
+    {{#usuario}}
+        <a href = "#" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">{{usuario}}</a>
+        <a href = "login/logout" class="w3-bar-item w3-button w3-right w3-light-red w3-mobile">Cerrar Sesion</a>
+    {{/usuario}}
+    {{^usuario}}
+        <a href = "/login" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">Login</a>
+
+    {{/usuario}}
+
 
     {{! <?php if (isset($_SESSION['usuario'])){
         echo '<a href = "usuario.php" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">' .

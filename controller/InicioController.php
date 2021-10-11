@@ -11,7 +11,14 @@ class InicioController{
 
     public function show()
     {
-        echo $this->printer->render( "view/inicioView.html");
+        if (isset($_SESSION['usuario'])){
+            $data['usuario'] = $_SESSION['usuario'];
+//            var_dump($data['usuario']);
+//            die();
+            echo $this->printer->render( "view/inicioView.html", $data);
+        }else {
+            echo $this->printer->render("view/inicioView.html");
+        }
     }
 }
 
