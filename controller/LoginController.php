@@ -26,11 +26,11 @@ class LoginController{
 
         if($usuario != null) {
             $_SESSION['usuario'] = $usuario;
-            header("Location: /proyecto-final-pw2/index.php");
+            header("Location: /index.php");
         }
         else{
             $_SESSION['errores'] = "El usuario ingresado no existe";
-            header("Location: /proyecto-final-pw2/login");
+            header("Location: /login");
 
         }
 //        echo $this->printer->render( "view/inicioView.html", $usuario);
@@ -40,7 +40,7 @@ class LoginController{
             session_destroy();
         }
 
-        header('Location: /proyecto-final-pw2/index.php');
+        header('Location: index.php');
     }
 }
 
