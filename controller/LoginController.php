@@ -29,9 +29,11 @@ class LoginController{
             header("Location: /index.php");
         }
         else{
-            $_SESSION['errores'] = "El usuario ingresado no existe";
-            header("Location: /login");
-
+            $data['errores'] = "El usuario ingresado no existe";
+//            var_dump($data['errores']);
+//            die();
+//            header("Location: /login");
+            echo $this->printer->render( "view/loginView.html", $data);
         }
 //        echo $this->printer->render( "view/inicioView.html", $usuario);
     }
