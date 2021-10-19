@@ -13,7 +13,12 @@ class RegistroController{
 
     public function show()
     {
-        echo $this->printer->render( "view/registroView.html");
+        if (isset($_SESSION['usuario'])){
+            $data['usuario'] = $_SESSION['usuario'];
+            echo $this->printer->render( "view/registroView.html",$data);
+        }else {
+            echo $this->printer->render( "view/registroView.html");
+        }    
     }
 
     function procesarRegistro(){
@@ -24,16 +29,22 @@ class RegistroController{
 
         if($data["clave"] == $data["repiteClave"]){
             $this->registroModel->setUsuario($data["usuario"], $data["clave"], $data["repiteClave"], $data["rol"]);
-
             echo $this->printer->render( "view/inicioView.html");
         }
         else{
             $data['errores'] = "Las contraseñas no coinciden";
             echo $this->printer->render( "view/registroView.html", $data);
         }
-
-    
     }
+
+    function logout(){
+        if(isset($_SESSION['usuario'])){
+            session_destroy();
+        }
+
+        header('Location: index.php');
+    }
+
 }
 
 ?>

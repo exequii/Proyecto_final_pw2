@@ -22,6 +22,11 @@ class Configuration{
         return new RegistroController( $this->createRegistroModel(), $this->createPrinter());
     }
 
+    public function createPerfilAdminController(){
+        require_once("controller/PerfilAdminController.php");
+        return new PerfilAdminController( $this->createPerfilAdminModel(), $this->createPrinter());
+    }
+
     /*********************************************** MODEL ************************************************************/
 
     public function createLoginModel(){
@@ -34,6 +39,12 @@ class Configuration{
         require_once("model/RegistroModel.php");
         $database = $this->getDatabase();
         return new RegistroModel($database);
+    }
+
+    public function createPerfilAdminModel(){
+        require_once("model/PerfilAdminModel.php");
+        $database = $this->getDatabase();
+        return new PerfilAdminModel($database);
     }
 
     /*******************************************************************************************************************/

@@ -11,11 +11,12 @@ class LoginModel
     public function getUsuario($email,$password){
         $SQL = "SELECT * FROM usuario WHERE usuario = '".$email."' AND clave = '".$password."'";
         $usuario = $this->database->query($SQL);
-        // if($this->database->error){
-        //     echo "La Consulta produjo un error " .$this->database->error;
-        //}
-
         return $usuario;
+    }
+
+    public function obtenerRolDeUsuario($nombre_usuario){
+        $SQL = "SELECT rol FROM usuario WHERE usuario like '$nombre_usuario'";
+        return $this->database->query($SQL);
     }
 }
 

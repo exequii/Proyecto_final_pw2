@@ -25,7 +25,7 @@
   </style>
   <body class="w3-light-grey">
     <!-- Navigation Bar -->
-    {{> header}}
+    {{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
     <!-- Header -->
     <header class="w3-display-container w3-content" style="max-width: 1500px">
       <img
