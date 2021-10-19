@@ -8,8 +8,8 @@ class RegistroModel
         $this->database = $database;
     }
 
-    function enviarMailValidacion($usuario){
-
+    function enviarMailValidacion($usuario, $hash){
+        /*
         $to = $usuario;
         $subject = 'Registro | Verificacion';
         $hash = md5( rand(0,1000) );
@@ -23,6 +23,9 @@ class RegistroModel
                      
         $headers = 'From:noreply@yourwebsite.com' . "\r\n";
         mail($to, $subject, $message, $headers);
+        */
+        $msg = 'http://localhost/verify?email='.$usuario.'&hash='.$hash.'';
+        return $msg;
     }
 
     function verificarSiLaCuentaExiste($email, $password){
@@ -39,11 +42,12 @@ class RegistroModel
     function setUsuario($email,$password,$repitePassword,$rol){
         if($password == $repitePassword) {
             if($this->verificarSiLaCuentaExiste($email,$password)){
-                $SQL = "INSERT INTO usuario (usuario, clave) VALUES (?,?)";
-                $this->database->insert($SQL,$email,$password);
+                $hash = md5( rand(0,1000) );
+                $SQL = "INSERT INTO usuario (usuario, clave, hash) VALUES (?,?,?)";
+                $this->database->insert($SQL,$email,$password, $hash);
                 //$data['errores'] = "Su cuenta fue registrada, <br /> por favor verifique su cuenta con el correo que le enviamos.";
-                $this->enviarMailValidacion($email);
-                echo "Se ha registrado correctamente";
+                return $this->enviarMailValidacion($email,$hash);
+                //echo "Se ha registrado correctamente";
             }else{
                 echo "El mail ya se encuentra registrado.";
             }

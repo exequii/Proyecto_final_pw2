@@ -90,10 +90,14 @@
             <button class="w3-button w3-dark-grey" type="submit">
               <i class="fa fa-search w3-margin-right"></i> Registrarse
             </button>
-            <!-- Errores -->
+            <!-- Errores y mensajes-->
             {{#errores}}
             <div class="w3-panel w3-red">{{errores}}</div>
-            {{/errores}}
+            {{/errores}} {{#msg}}
+            <div class="w3-panel w3-red">
+              Verifique su cuenta haciendo click: <a href="{{msg}}">Aqui.</a>
+            </div>
+            {{/msg}}
           </form>
         </div>
       </div>
