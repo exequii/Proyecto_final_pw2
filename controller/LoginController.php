@@ -24,15 +24,22 @@ class LoginController{
         $usuario = $this->loginModel->getUsuario($data["usuario"],$data["clave"]);
 
         if($usuario != null) {
-            $_SESSION['usuario'] = $usuario;
-            $data['usuario'] = $usuario;
-            $rol = $this->loginModel->obtenerRolDeUsuario($_POST["usuario"]);
-            $rolAdmin = "ADMIN";
-            if($rol[0]['rol'] == $rolAdmin){
-                $_SESSION['admin'] = $rol[0]['rol'];
-                $data['admin'] = $rol[0]['rol'];
+            if($usuario[0]['hash']==null){
+        
+                $_SESSION['usuario'] = $usuario;
+                $data['usuario'] = $usuario;
+                $rol = $this->loginModel->obtenerRolDeUsuario($_POST["usuario"]);
+                $rolAdmin = "ADMIN";
+                if($rol[0]['rol'] == $rolAdmin){
+                    $_SESSION['admin'] = $rol[0]['rol'];
+                    $data['admin'] = $rol[0]['rol'];
+                }
+                echo $this->printer->render( "view/inicioView.html", $data);
             }
-            echo $this->printer->render( "view/inicioView.html", $data);
+            else{
+                $data['errores'] = "El usuario debe verificar su cuenta.";
+                echo $this->printer->render( "view/loginView.html", $data);
+            }
         }
         else{
             $data['errores'] = "El usuario ingresado no existe";
