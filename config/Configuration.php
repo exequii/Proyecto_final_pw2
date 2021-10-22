@@ -31,6 +31,10 @@ class Configuration{
         require_once("controller/VerifyController.php");
         return new VerifyController($this->createLoginModel(),$this->createPrinter());
     }
+    public function createTurnosController(){
+        require_once("controller/TurnosController.php");
+        return new TurnosController($this->createTurnosModel(),$this->createPrinter());
+    }
 
     /*********************************************** MODEL ************************************************************/
 
@@ -50,6 +54,11 @@ class Configuration{
         require_once("model/PerfilAdminModel.php");
         $database = $this->getDatabase();
         return new PerfilAdminModel($database);
+    }
+    public function createTurnosModel(){
+        require_once("model/TurnosModel.php");
+        $database = $this->getDatabase();
+        return new TurnosModel($database);
     }
 
     /*******************************************************************************************************************/
