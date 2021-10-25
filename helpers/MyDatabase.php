@@ -34,6 +34,10 @@ class MyDatabase{
 
         //$this->connection->close();
     }
+    public function insertTurnos($idusuario,$hospital,$dia){
+        $sql = " INSERT INTO `turno` (`idturno`, `usuario_id`, `hospital_id`, `dia`) VALUES (NULL, '$idusuario', '$hospital', '$dia')";
+        mysqli_query($this->connection, $sql);
+    }
 
     public function update($sql){
         mysqli_query($this->connection, $sql);

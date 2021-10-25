@@ -14,4 +14,13 @@ class TurnosController
     public function show(){
         echo $this->printer->render( "view/turnosView.html");
     }
+    public function reservarTurno(){
+        $data= $_SESSION['usuario'];
+        $idusuario = $data[0]['idusuario'];
+
+        $data['msg'] = $this->turnosModel->setTurno($idusuario,$_POST['hospital'],$_POST['dia']);
+        echo $this->printer->render( "view/inicioView.html", $data);
+
+
+    }
 }
