@@ -19,8 +19,7 @@ class TurnosController
         $idusuario = $data[0]['idusuario'];
 
         $data['msg'] = $this->turnosModel->setTurno($idusuario,$_POST['hospital'],$_POST['dia']);
+        $this->turnosModel->setNivelVuelo($idusuario);
         echo $this->printer->render( "view/inicioView.html", $data);
-
-
     }
 }
