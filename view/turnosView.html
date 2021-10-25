@@ -41,21 +41,21 @@
         </div>
         <div class="w3-container w3-white w3-padding-16">
             <form
-                    action="#"
+                    action="/turnos/reservarTurno"
                     method="post"
                     enctype="multipart/form-data"
             >
                 <div class="w3-row-padding" style="margin: 0 -16px">
                     <div class="w3-half" style="width: 100%">
-                        <label for="centro-medico"
+                        <label for="hospital"
                         ><i class="fas fa-hospital"></i> Centro médico:</label>
                             <select
                                 class="w3-input w3-border"
-                                name="centro-medico"
+                                name="hospital"
                                 required>
-                                <option value="buenos aires">Buenos Aires</option>
-                                <option value="shangai">Shangai</option>
-                                <option value="ankara">Ankara</option>
+                                <option value="1">Buenos Aires</option>
+                                <option value="2">Shangai</option>
+                                <option value="3">Ankara</option>
                         </select>
 
                     </div>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <button class="w3-button w3-dark-grey" type="submit">
-                    <i class="fa fa-search w3-margin-right"></i> Realizar reserva
+                    <i class="fa fa-search w3-margin-right"></i> Reservar turno
                 </button>
                 <!-- Errores -->
                 {{#errores}}
