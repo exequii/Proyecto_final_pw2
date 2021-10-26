@@ -35,6 +35,10 @@ class Configuration{
         require_once("controller/TurnosController.php");
         return new TurnosController($this->createTurnosModel(),$this->createPrinter());
     }
+    public function createVuelosController(){
+        require_once("controller/VuelosController.php");
+        return new VuelosController($this->createVuelosModel(),$this->createPrinter());
+    }
 
     /*********************************************** MODEL ************************************************************/
 
@@ -59,6 +63,11 @@ class Configuration{
         require_once("model/TurnosModel.php");
         $database = $this->getDatabase();
         return new TurnosModel($database);
+    }
+    public function createVuelosModel(){
+        require_once("model/VuelosModel.php");
+        $database = $this->getDatabase();
+        return new VuelosModel($database);
     }
 
     /*******************************************************************************************************************/
