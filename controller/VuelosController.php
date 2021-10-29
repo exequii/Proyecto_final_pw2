@@ -12,6 +12,7 @@ class VuelosController
     }
 
     public function show(){
-        echo $this->printer->render( "view/vuelosView.html");
+        $data['vuelos'] = $this->vuelosModel->getVuelos();
+        echo $this->printer->render( "view/vuelosView.html",$data);
     }
 }

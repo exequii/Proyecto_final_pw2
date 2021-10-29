@@ -28,3 +28,23 @@ INSERT INTO `hospital` (`idhospital`, `nombre`, `capacidad`)
                                (NULL, 'Ankara', '200');
 
 ALTER TABLE `usuario` ADD `nivelVuelo` TINYINT NULL ;
+
+CREATE TABLE equipo (idequipo SMALLINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                       tipo VARCHAR(30) NOT NULL,
+                       modelo VARCHAR(30) NOT NULL,
+                       capacidad INT);
+
+CREATE TABLE vuelo (idvuelo SMALLINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                    dia VARCHAR(30) NOT NULL,
+                    equipo_id SMALLINT NOT NULL,
+                    duracion SMALLINT,
+                    partida VARCHAR(15) NOT NULL,
+                    horario TIME NOT NULL ,
+                    FOREIGN KEY (equipo_id) REFERENCES equipo(idequipo));
+
+INSERT INTO `equipo` (`idequipo`, `tipo`, `modelo`, `capacidad`)
+                    VALUES (NULL, 'orbital', 'calandria', '300'),
+                           (NULL, 'orbital', 'colibri', '120');
+
+INSERT INTO `vuelo` (`idvuelo`, `dia`, `equipo_id`, `duracion`, `partida`, `horario`)
+                    VALUES (NULL, 'lunes', '1', '8', 'BA', '08:00');
