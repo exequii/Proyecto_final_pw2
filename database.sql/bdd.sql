@@ -48,3 +48,10 @@ INSERT INTO `equipo` (`idequipo`, `tipo`, `modelo`, `capacidad`)
 
 INSERT INTO `vuelo` (`idvuelo`, `dia`, `equipo_id`, `duracion`, `partida`, `horario`)
                     VALUES (NULL, 'lunes', '1', '8', 'BA', '08:00');
+
+CREATE TABLE reserva (idreserva SMALLINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                    vuelo_id SMALLINT NOT NULL,
+                    usuario_id SMALLINT NOT NULL,
+                    cantidad_pasajeros VARCHAR(15) NOT NULL,
+                    FOREIGN KEY (vuelo_id) REFERENCES vuelo(idvuelo),
+                    FOREIGN KEY (usuario_id) REFERENCES usuario(idusuario));

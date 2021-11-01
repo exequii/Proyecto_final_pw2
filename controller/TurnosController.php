@@ -12,7 +12,13 @@ class TurnosController
     }
 
     public function show(){
-        echo $this->printer->render( "view/turnosView.html");
+        if (isset($_SESSION['usuario'])){
+            $data['usuario'] = $_SESSION['usuario'];
+            echo $this->printer->render( "view/turnosView.html",$data);
+        }else{
+            echo $this->printer->render( "view/turnosView.html");
+        }
+
     }
     public function reservarTurno(){
         $data= $_SESSION['usuario'];
