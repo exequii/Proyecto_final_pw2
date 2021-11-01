@@ -39,6 +39,10 @@ class Configuration{
         require_once("controller/VuelosController.php");
         return new VuelosController($this->createVuelosModel(),$this->createPrinter());
     }
+    public function createPerfilUsuarioController(){
+        require_once("controller/PerfilUsuarioController.php");
+        return new PerfilUsuarioController($this->createPerfilUsuarioModel(),$this->createPrinter());
+    }
 
     /*********************************************** MODEL ************************************************************/
 
@@ -68,6 +72,11 @@ class Configuration{
         require_once("model/VuelosModel.php");
         $database = $this->getDatabase();
         return new VuelosModel($database);
+    }
+    public function createPerfilUsuarioModel(){
+        require_once("model/PerfilUsuarioModel.php");
+        $database = $this->getDatabase();
+        return new PerfilUsuarioModel($database);
     }
 
     /*******************************************************************************************************************/
