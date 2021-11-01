@@ -38,23 +38,31 @@
     <div class="w3-display-left w3-col">
         <div class="w3-container w3-red w3-padding">
             <h2><i class="fa fa-clinic-medical w3-margin-right"></i>Vuelos disponibles</h2>
+            <form action="/vuelos/reservar" method="POST">
             <table class="w3-table w3-light-grey">
                 <tr>
+                    <th></th>
                     <th>Día</th>
                     <th>Equipo</th>
                     <th>Duracion</th>
                     <th>Horario</th>
+                    <th>Pasajes disponibles</th>
+                    <th>Tipo de vuelo</th>
                 </tr>
                 {{#vuelos}}
                 <tr>
+                    <td><input type="radio" name="vuelo" value="{{idvuelo}}"></td>
                     <td>{{dia}}</td>
-                    <td>{{equipo_id}}</td>
+                    <td>{{modelo}}</td>
                     <td>{{duracion}}</td>
                     <td>{{horario}}</td>
+                    <td>{{capacidad}}</td>
+                    <td>{{tipo_vuelo}}</td>
                 </tr>
                 {{/vuelos}}
-
             </table>
+                <input type="submit" value="Realizar reserva" class="btn ">
+            </form>
         </div>
 
     </div>

@@ -7,8 +7,25 @@ class VuelosModel{
         $this->database = $database;
     }
     public function getVuelos(){
-        $SQL = "SELECT * FROM vuelo";
+        $SQL = "SELECT vuelo.dia,vuelo.idvuelo,vuelo.duracion,vuelo.partida,vuelo.horario,vuelo.tipo_vuelo,equipo.capacidad, equipo.modelo FROM vuelo INNER JOIN equipo ON vuelo.equipo_id = equipo.idequipo;";
         $vuelos = $this->database->query($SQL);
         return $vuelos;
+    }
+    public function buscarVueloPorId($id){
+        $SQL = "SELECT * FROM vuelo WHERE idvuelo = $id";
+        return $vuelo = $this->database->query($SQL);
+    }
+    public function realizarReserva($idVuelo,$idUsuario,$cantidadReservas,$comprobante){
+        $insert = "INSERT INTO `reserva` (`idreserva`, `vuelo_id`, `usuario_id`, `cantidad_pasajeros`, `comprobante`) VALUES (NULL, $idVuelo, $idUsuario, $cantidadReservas,'$comprobante')";
+//        var_dump($insert);
+//        die();
+        $this->database->insertQuery($insert);
+
+    }
+
+    public function actualizarCapacidad($equipo, $cantidad)
+    {
+        $update = "UPDATE `equipo` SET `capacidad` = `capacidad` - $cantidad WHERE `equipo`.`idequipo` = $equipo";
+        $this->database->update($update);
     }
 }
