@@ -21,11 +21,16 @@ class TurnosController
 
     }
     public function reservarTurno(){
-        $data= $_SESSION['usuario'];
-        $idusuario = $data[0]['idusuario'];
-
-        $data['msg'] = $this->turnosModel->setTurno($idusuario,$_POST['hospital'],$_POST['dia']);
-        $this->turnosModel->setNivelVuelo($idusuario);
-        echo $this->printer->render( "view/inicioView.html", $data);
+        error_reporting(0);
+        if($_SESSION['usuario'] !=null){
+            $data= $_SESSION['usuario'];
+            $idusuario = $data[0]['idusuario'];
+            $data['msg'] = $this->turnosModel->setTurno($idusuario,$_POST['hospital'],$_POST['dia'],$idusuario);
+            echo $this->printer->render( "view/turnosView.html", $data);
+        }
+        else{
+            $data["errores"] = "Debe estar iniciada la sesion para reservar un turno medico";
+            echo $this->printer->render( "view/turnosView.html", $data);
+        }
     }
 }

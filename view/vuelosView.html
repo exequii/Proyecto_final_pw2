@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-<title>TP FINAL - ENTREGA 1</title>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-<link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Raleway"
-/>
-<link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-/>
-<style>
+  <title>TP FINAL - ENTREGA 1</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Raleway"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <style>
     body,
     h1,
     h2,
@@ -20,55 +20,57 @@
     h4,
     h5,
     h6 {
-        font-family: "Raleway", Arial, Helvetica, sans-serif;
+      font-family: "Raleway", Arial, Helvetica, sans-serif;
     }
-</style>
-<body class="w3-light-grey">
-<!-- Navigation Bar -->
-{{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
-<!-- Header -->
-<header class="w3-display-container w3-content" style="max-width: 1500px">
-    <img
-            class="w3-image"
-            src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
-            alt="The Hotel"
-            style="min-width: 1000px; height: 600px !important"
-            width="1500"
-    />
-    <div class="w3-display-left w3-col">
+  </style>
+  <body class="w3-light-grey">
+    <!-- Navigation Bar -->
+    {{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
+    <!-- Header -->
+    <header class="w3-display-container w3-content" style="max-width: 1500px">
+      <img
+        class="w3-image"
+        src="https://estaticos.muyinteresante.es/media/cache/1140x_thumb/uploads/images/article/6113c9635bafe88526636b24/galaxias-cercanas_0.jpg"
+        alt="The Hotel"
+        style="min-width: 1000px; height: 600px !important"
+        width="1500"
+      />
+      <div class="w3-display-left w3-col">
         <div class="w3-container w3-red w3-padding">
-            <h2><i class="fa fa-clinic-medical w3-margin-right"></i>Vuelos disponibles</h2>
-            <form action="/vuelos/reservar" method="POST">
+          <h2>
+            <i class="fa fa-clinic-medical w3-margin-right"></i>Vuelos
+            disponibles
+          </h2>
+          <form action="/vuelos/reservar" method="POST">
             <table class="w3-table w3-light-grey">
-                <tr>
-                    <th></th>
-                    <th>Día</th>
-                    <th>Equipo</th>
-                    <th>Duracion</th>
-                    <th>Horario</th>
-                    <th>Pasajes disponibles</th>
-                    <th>Tipo de vuelo</th>
-                </tr>
-                {{#vuelos}}
-                <tr>
-                    <td><input type="radio" name="vuelo" value="{{idvuelo}}"></td>
-                    <td>{{dia}}</td>
-                    <td>{{modelo}}</td>
-                    <td>{{duracion}}</td>
-                    <td>{{horario}}</td>
-                    <td>{{capacidad}}</td>
-                    <td>{{tipo_vuelo}}</td>
-                </tr>
-                {{/vuelos}}
+              <tr>
+                <th></th>
+                <th>Día</th>
+                <th>Equipo</th>
+                <th>Duracion</th>
+                <th>Horario</th>
+                <th>Pasajes disponibles</th>
+                <th>Tipo de vuelo</th>
+              </tr>
+              {{#vuelos}}
+              <tr>
+                <td><input type="radio" name="vuelo" value="{{idvuelo}}" /></td>
+                <td>{{dia}}</td>
+                <td>{{modelo}}</td>
+                <td>{{duracion}}</td>
+                <td>{{horario}}</td>
+                <td>{{capacidad}}</td>
+                <td>{{tipo_vuelo}}</td>
+              </tr>
+              {{/vuelos}}
             </table>
-                <input type="submit" value="Realizar reserva" class="btn ">
-            </form>
+            <input type="submit" value="Realizar reserva" class="btn" />
+          </form>
         </div>
+      </div>
+    </header>
 
-    </div>
-</header>
-
-<!-- Footer -->
-{{> footer}}
-</body>
+    <!-- Footer -->
+    {{> footer}}
+  </body>
 </html>
