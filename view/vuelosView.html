@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <title>TP FINAL - ENTREGA 1</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Raleway"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-  />
-  <style>
+<title>TP FINAL - ENTREGA 1</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+<link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Raleway"
+/>
+<link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<style>
     body,
     h1,
     h2,
@@ -20,57 +20,73 @@
     h4,
     h5,
     h6 {
-      font-family: "Raleway", Arial, Helvetica, sans-serif;
+        font-family: "Raleway", Arial, Helvetica, sans-serif;
     }
-  </style>
-  <body class="w3-light-grey">
-    <!-- Navigation Bar -->
-    {{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
-    <!-- Header -->
-    <header class="w3-display-container w3-content" style="max-width: 1500px">
-      <img
-        class="w3-image"
-        src="https://estaticos.muyinteresante.es/media/cache/1140x_thumb/uploads/images/article/6113c9635bafe88526636b24/galaxias-cercanas_0.jpg"
-        alt="The Hotel"
-        style="min-width: 1000px; height: 600px !important"
-        width="1500"
-      />
-      <div class="w3-display-left w3-col">
-        <div class="w3-container w3-red w3-padding">
-          <h2>
-            <i class="fa fa-clinic-medical w3-margin-right"></i>Vuelos
-            disponibles
-          </h2>
-          <form action="/vuelos/reservar" method="POST">
-            <table class="w3-table w3-light-grey">
-              <tr>
-                <th></th>
-                <th>Día</th>
-                <th>Equipo</th>
-                <th>Duracion</th>
-                <th>Horario</th>
-                <th>Pasajes disponibles</th>
-                <th>Tipo de vuelo</th>
-              </tr>
-              {{#vuelos}}
-              <tr>
-                <td><input type="radio" name="vuelo" value="{{idvuelo}}" /></td>
-                <td>{{dia}}</td>
-                <td>{{modelo}}</td>
-                <td>{{duracion}}</td>
-                <td>{{horario}}</td>
-                <td>{{capacidad}}</td>
-                <td>{{tipo_vuelo}}</td>
-              </tr>
-              {{/vuelos}}
-            </table>
-            <input type="submit" value="Realizar reserva" class="btn" />
-          </form>
+</style>
+<body class="w3-light-grey">
+<!-- Navigation Bar -->
+{{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
+<!-- Header -->
+<header class="w3-display-container w3-content" style="max-width: 1500px">
+    <img
+            class="w3-image"
+            src="https://estaticos.muyinteresante.es/media/cache/1140x_thumb/uploads/images/article/6113c9635bafe88526636b24/galaxias-cercanas_0.jpg"
+            alt="The Hotel"
+            style="min-width: 1000px; height: 600px !important"
+            width="1500"
+    />
+    <div class="w3-display-left w3-padding w3-col l6 m8">
+        <div class="w3-container w3-red">
+            <h2>
+                <i class="fa fa-plane w3-margin-right"></i>Elegi tu viaje
+            </h2>
         </div>
-      </div>
-    </header>
+        <div class="w3-container w3-white w3-padding-16">
+            <form
+                    action="/vuelos/showVuelos"
+                    method="post"
+            >
+                <div class="w3-row-padding" style="margin: 8px -16px">
+                    <div class="w3-half" style="width: 100%">
+                        <label for="origen"
+                        ><i class="fas fa-plane-departure"></i> Lugar de salida:</label
+                        >
+                        <select class="w3-input w3-border" name="origen" required>
+                            <option value="1">Buenos Aires</option>
+                            <option value="2">Shangai</option>
+                            <option value="3">Ankara</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="w3-row-padding" style="margin: 8px -16px">
+                    <div class="w3-half" style="width: 100%">
+                        <label for="destino"
+                        ><i class="fas fa-plane-arrival"></i> Lugar de destino:</label
+                        >
+                        <select class="w3-input w3-border" name="destino" required>
+                            <option value="1">Buenos Aires</option>
+                            <option value="2">Shangai</option>
+                            <option value="3">Ankara</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="w3-row-padding" style="margin: 8px -16px">
+                    <div class="w3-half w3-margin-bottom" style="width: 100%">
+                        <label for="dia"><i class="fa fa-calendar-o"></i> Dia:</label>
+                        <input
+                                class="w3-input w3-border"
+                                type="date"
+                                name="dia"
+                                required
+                        />
+                    </div>
+                </div>
+                <button class="w3-button w3-dark-grey" type="submit">
+                    <i class="fa fa-search w3-margin-right"></i> Buscar vuelos
+                </button>
+</header>
 
-    <!-- Footer -->
-    {{> footer}}
-  </body>
+<!-- Footer -->
+{{> footer}}
+</body>
 </html>

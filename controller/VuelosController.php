@@ -10,14 +10,25 @@ class VuelosController
         $this->vuelosModel = $vuelosModel;
         $this->printer = $printer;
     }
-
     public function show(){
-        $data['vuelos'] = $this->vuelosModel->getVuelos();
         if (isset($_SESSION['usuario'])){
             $data['usuario'] = $_SESSION['usuario'];
             echo $this->printer->render( "view/vuelosView.html",$data);
         }else {
-            echo $this->printer->render( "view/vuelosView.html",$data);
+            echo $this->printer->render( "view/vuelosView.html");
+        }
+    }
+
+    public function showVuelos(){
+        $data['dia'] = $_POST['dia'];
+        $data['vuelos'] = $this->vuelosModel->getVuelos($data['dia']);
+//        var_dump($data['vuelos']);
+//        die();
+        if (isset($_SESSION['usuario'])){
+            $data['usuario'] = $_SESSION['usuario'];
+            echo $this->printer->render( "view/vuelosDisponiblesView.html",$data);
+        }else {
+            echo $this->printer->render( "view/vuelosDisponiblesView.html",$data);
         }
 
     }
