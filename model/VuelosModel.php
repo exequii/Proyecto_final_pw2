@@ -7,7 +7,9 @@ class VuelosModel{
         $this->database = $database;
     }
     public function getVuelos(){
-        $SQL = "SELECT vuelo.dia,vuelo.idvuelo,vuelo.duracion,vuelo.partida,vuelo.horario,vuelo.tipo_vuelo,equipo.capacidad,equipo.modelo FROM vuelo INNER JOIN equipo ON vuelo.equipo_id = equipo.idequipo;";
+        //$SQL = "SELECT vuelo.dia,vuelo.idvuelo,vuelo.duracion,vuelo.partida,vuelo.horario,vuelo.tipo_vuelo,equipo.capacidad,equipo.modelo FROM vuelo INNER JOIN equipo ON vuelo.equipo_id = equipo.idequipo;";
+        $SQL = "SELECT * FROM vuelo INNER JOIN equipo ON vuelo.equipo_id = equipo.idequipo;";
+
         $vuelos = $this->database->query($SQL);
         return $vuelos;
     }

@@ -31,6 +31,15 @@ class LoginModel
         $SQL = "SELECT rol FROM usuario WHERE usuario like '$nombre_usuario'";
         return $this->database->query($SQL);
     }
+
+    public function getUsuarios(){
+        $SQL = "SELECT * FROM usuario";
+        return $this->database->query($SQL);
+    }
+
+    public function updateRol($rol,$usuario){
+        return $this->database->update("UPDATE usuario SET rol='".$rol."' WHERE usuario='".$usuario."'");
+    }
 }
 
 ?>

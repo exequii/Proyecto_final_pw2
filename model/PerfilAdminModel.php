@@ -8,6 +8,10 @@ class PerfilAdminModel
         $this->database = $database;
     }
 
+    function getTurnos(){
+        $sql = "SELECT * FROM turno";
+        return $this->database->query($sql);
+    }
 }
 
 ?>

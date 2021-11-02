@@ -2,11 +2,13 @@
 
 class PerfilAdminController{
 
+    private $perfilAdminModel;
     private $printer;
     private $loginModel;
 
-    public function __construct($loginModel,$printer)
+    public function __construct($perfilAdminModel,$printer,$loginModel)
     {
+        $this->perfilAdminModel = $perfilAdminModel;
         $this->loginModel = $loginModel;
         $this->printer = $printer;
     }
@@ -18,6 +20,8 @@ class PerfilAdminController{
             if (isset($_SESSION['admin'])){
                 $data['admin'] = $_SESSION['admin'];
             }
+            $data['usuarios'] = $this->loginModel->getUsuarios();
+            $data['turnos'] = $this->perfilAdminModel->getTurnos();
             echo $this->printer->render( "view/perfilAdminView.html",$data);
         }else {
             echo $this->printer->render( "view/perfilAdminView.html");
@@ -35,7 +39,7 @@ class PerfilAdminController{
     public function validarPermisosDeAdmin()
     {
         if (isset($_SESSION['rol'])) {
-            if ($_SESSION['rol'] == 2) {
+            if ($_SESSION['rol'] == "ADMIN") {
                 return true;
             } else {
                 return false;
@@ -45,32 +49,18 @@ class PerfilAdminController{
         }
     }
 
-    public function editarRol()
-    {
-        if ($this->validarPermisosDeAdmin()) {
-            $data["usuarios"] = $this->model->mostrarUsuariosYRolPorId();
-            $data["roles"] = $this->model->obtenerRoles();
-            echo $this->renderer->render("view/perfilAdminView.html", $data);
-        } else {
-            header('Location: index.php');
-        }
-    }
-
     public function actualizarRol()
     {
-        if ($this->validarPermisosDeAdmin()) {
-            if (isset($_POST['rol'])) {
-                $rol = $_POST['rol'];
-                $usuario = $_POST["usuario"];
-                $this->model->updateRol($rol, $usuario);
-                echo $this->editarRol();
-            } else {
-                echo $this->editarRol();
-            }
-        } else {
-            header('Location: index.php');
-        }
-    }
+        $rol = $_POST['rol'];
+        $usuario = $_POST["usuario"];
+        $this->loginModel->updateRol($rol, $usuario);
+        $data['msg'] = "Se ha actualizado correctamente el rol";
+        $data['usuarios'] = $this->loginModel->getUsuarios();
+        $data['turnos'] = $this->perfilAdminModel->getTurnos();
+        $data['usuario'] = $_SESSION['usuario'];
+        $data['admin'] = $_SESSION['admin'];
+        echo $this->printer->render( "view/perfilAdminView.html",$data);
+    }   
 }
 
 ?>

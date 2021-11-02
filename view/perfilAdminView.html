@@ -27,44 +27,110 @@
 <body class="w3-light-grey">
   <!-- Navigation Bar -->
   {{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
+  {{#msg}}
+  <div class="w3-panel w3-red">{{msg}}</div>
+  {{/msg}}
 
-  <div class="container pt-5 my-3 border">
-    <h2 class="text-center">Buscar usuario</h2>
+  <div class="cuerpo">
+    <div class="container pt-5 my-3 busquedas">
+      <h2 class="text-center">Buscar usuario</h2>
 
-    <table class="table table-bordered my-5">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Rol</th>
-        </tr>
-      </thead>
+      <table class="table table-bordered my-5">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Rol</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        {{#usuarios}}
-        <tr>
-          <td>{{nombre}}</td>
-          <td>
-            {{#rol}}
-            <form method="POST" action="/login/actualizarRol">
-              <div class="row">
-                <div class="col-md-8">
-                  <select name="rol" class="form-control">
-                    {{#roles}}
-                    <option id="select" value="{{id}}">{{nombre}}</option>
-                    {{/roles}}
-                  </select>
+        <tbody>
+          {{#usuarios}}
+          <tr>
+            <td>{{usuario}}</td>
+            <td>
+              <form
+                method="POST"
+                action="/perfilAdmin/actualizarRol"
+                class="centrado"
+              >
+                {{rol}}
+                <div class="row centrado" style="display: flex">
+                  <div class="col-md-8">
+                    Cambiar a:
+                    <select name="rol" class="form-control">
+                      <option id="select" value="ADMIN">ADMIN</option>
+                      <option id="select" value="USUARIO">USUARIO</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="hidden" value="{{usuario}}" name="usuario" />
+                    <button class="btn btn-dark">Actualizar rol</button>
+                  </div>
                 </div>
-                <div class="col-md-4">
-                  <input type="hidden" name="usuario" value="{{id}}" />
-                  <button class="btn btn-dark">Actualizar rol</button>
-                </div>
-              </div>
-            </form>
-            {{/rol}}
-          </td>
-        </tr>
-        {{/usuarios}}
-      </tbody>
-    </table>
+              </form>
+            </td>
+          </tr>
+          {{/usuarios}}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container pt-5 my-3 busquedas">
+      <h2 class="text-center">Buscar Turnos Medicos</h2>
+
+      <table class="table table-bordered my-5">
+        <thead>
+          <tr>
+            <th>Sede</th>
+            <th>Fecha</th>
+            <th>Resultado</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#turnos}}
+          <tr>
+            <td>{{idturno}}</td>
+            <td>{{dia}}</td>
+            <td>{{hospital_id}}</td>
+          </tr>
+          {{/turnos}}
+        </tbody>
+      </table>
+    </div>
   </div>
+  {{> footer}}
 </body>
+
+<style>
+  .cuerpo {
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .busquedas {
+    width: 80%;
+    border: 2px solid red;
+    border-radius: 15px;
+    padding: 10px;
+  }
+
+  table,
+  tbody {
+    width: 100%;
+  }
+
+  td {
+    text-align: center !important;
+  }
+
+  .centrado {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+</style>

@@ -24,7 +24,7 @@ class Configuration{
 
     public function createPerfilAdminController(){
         require_once("controller/PerfilAdminController.php");
-        return new PerfilAdminController( $this->createPerfilAdminModel(), $this->createPrinter());
+        return new PerfilAdminController( $this->createPerfilAdminModel(), $this->createPrinter(), $this->createLoginModel());
     }
 
     public function createVerifyController(){
