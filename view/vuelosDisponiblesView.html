@@ -48,9 +48,11 @@
                 <th>Día</th>
                 <th>Equipo</th>
                 <th>Duracion</th>
-                <th>Horario</th>
+                <th>Horario Partida</th>
                 <th>Pasajes disponibles</th>
                 <th>Tipo de vuelo</th>
+                <th>Origen</th>
+                <th>Destino</th>
               </tr>
               {{#vuelos}}
               <tr>
@@ -61,6 +63,8 @@
                 <td>{{horario}}</td>
                 <td>{{capacidad}}</td>
                 <td>{{tipo_vuelo}}</td>
+                <td>{{origen}}</td>
+                <td>{{destino}}</td>
               </tr>
               {{/vuelos}}
             </table>

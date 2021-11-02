@@ -21,9 +21,9 @@ class VuelosController
 
     public function showVuelos(){
         $data['dia'] = $_POST['dia'];
-        $data['vuelos'] = $this->vuelosModel->getVuelos($data['dia']);
-//        var_dump($data['vuelos']);
-//        die();
+        $data['origen'] = $_POST['origen'];
+        $data['destino'] = $_POST['destino'];
+        $data['vuelos'] = $this->vuelosModel->getVuelosBuscados($data['dia'],$data['origen'],$data['destino']);
         if (isset($_SESSION['usuario'])){
             $data['usuario'] = $_SESSION['usuario'];
             echo $this->printer->render( "view/vuelosDisponiblesView.html",$data);
