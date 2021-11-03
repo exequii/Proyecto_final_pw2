@@ -38,6 +38,7 @@ class LoginController{
             }
             else{
                 $data['errores'] = "El usuario debe verificar su cuenta.";
+                $data['usuario'] = null;
                 echo $this->printer->render( "view/loginView.html", $data);
             }
         }
