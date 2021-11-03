@@ -13,6 +13,7 @@ class TurnosModel
     {
         $this->database->insertTurnos($usuario, $hospital, $dia);
         $nivelVuelo = $this->setNivelVuelo($idusuario);
+        $_SESSION['usuario'][0]['nivelVuelo'] = $nivelVuelo;
         return "Se ha reservado el turno correctamente. Su nivel de vuelo es ".$nivelVuelo.".";
     }
     function setNivelVuelo($idusuario){
@@ -20,7 +21,7 @@ class TurnosModel
         $probabilidades = array(3,3,3,3,3,3,2,2,2,1);
 
         $nivelVuelo = $probabilidades[array_rand($probabilidades,1)];
-        $sql = "UPDATE `usuario` SET `nivelVuelo` = $nivelVuelo WHERE `usuario`.`idusuario` = $idusuario";
+        $sql = "UPDATE `usuario` SET `nivelVuelo` = '$nivelVuelo' WHERE `idusuario` = '$idusuario'";
         $this->database->update($sql);
         return $nivelVuelo;
     }

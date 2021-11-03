@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2021 a las 22:02:49
+-- Tiempo de generación: 03-11-2021 a las 02:46:39
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 8.0.9
 
@@ -43,14 +43,14 @@ CREATE TABLE `equipo` (
 --
 
 INSERT INTO `equipo` (`idequipo`, `modelo`, `capacidad`, `matricula`, `general`, `familiar`, `suite`, `tipo`) VALUES
-(1, 'Calandria', 300, 'O1', 200, 75, 25, 'Suborbital'),
+(1, 'Calandria', 267, 'O1', 200, 75, 25, 'Suborbital'),
 (2, 'Colibri', 120, 'O2', 100, 18, 2, 'Suborbital'),
 (3, 'Zorzal', 100, 'BA1', 50, 0, 50, 'BA'),
 (4, 'Carancho', 110, 'BA4', 110, 0, 0, 'BA'),
 (5, 'Aguilucho', 60, 'BB4', 0, 50, 10, 'BA'),
 (6, 'Canario', 80, 'BA14', 0, 70, 10, 'BA'),
 (7, 'Aguila', 300, 'AA13', 200, 75, 25, 'AA'),
-(8, 'Condor', 350, 'CO10', 300, 10, 40, 'AA'),
+(8, 'Condor', 333, 'CO10', 300, 10, 40, 'AA'),
 (9, 'Halcon', 200, 'HA1', 150, 25, 25, 'AA'),
 (10, 'Guanaco', 100, 'GU14', 100, 0, 0, 'AA');
 
@@ -94,7 +94,17 @@ CREATE TABLE `reserva` (
 --
 
 INSERT INTO `reserva` (`idreserva`, `vuelo_id`, `usuario_id`, `cantidad_pasajeros`, `comprobante`) VALUES
-(21, 1, 2, '1', '1061d214');
+(31, 4, 2, '2', 'f83f2fec'),
+(36, 4, 3, '3', '8f381f7a'),
+(37, 4, 3, '3', '8f381f7a'),
+(38, 10, 3, '2', 'b6971516'),
+(39, 10, 3, '1', '2f9e44ac'),
+(40, 10, 3, '1', '2f9e44ac'),
+(41, 10, 3, '1', '2f9e44ac'),
+(42, 10, 3, '1', '2f9e44ac'),
+(51, 10, 3, '1', '2f9e44ac'),
+(52, 10, 3, '1', '2f9e44ac'),
+(53, 10, 3, '1', '2f9e44ac');
 
 -- --------------------------------------------------------
 
@@ -126,7 +136,21 @@ INSERT INTO `turno` (`idturno`, `usuario_id`, `hospital_id`, `dia`) VALUES
 (13, 3, 3, '2021-10-31'),
 (14, 2, 2, '2021-10-28'),
 (17, 2, 1, '2021-11-27'),
-(18, 2, 2, '2021-11-27');
+(18, 2, 2, '2021-11-27'),
+(19, 3, 1, '2021-11-03'),
+(35, 3, 1, '2021-11-24'),
+(36, 3, 1, '2021-11-04'),
+(37, 3, 1, '2021-11-05'),
+(38, 3, 1, '2021-11-04'),
+(39, 3, 1, '2021-11-04'),
+(40, 3, 1, '2021-11-13'),
+(41, 3, 1, '2021-11-13'),
+(42, 3, 1, '2021-11-13'),
+(43, 3, 1, '2021-11-19'),
+(44, 3, 1, '2021-11-06'),
+(45, 3, 1, '2021-11-02'),
+(46, 3, 1, '2021-11-07'),
+(47, 3, 1, '2021-11-07');
 
 -- --------------------------------------------------------
 
@@ -150,7 +174,7 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idusuario`, `usuario`, `rol`, `clave`, `hash`, `nivelVuelo`) VALUES
 (1, 'admin@admin.com', 'ADMIN', 'admin', NULL, NULL),
 (2, 'nsavedra97@gmail.com', 'USUARIO', 'hola', NULL, 3),
-(3, 'ari@ari.com', 'USUARIO', 'hola', NULL, 3),
+(3, 'ari@ari.com', 'USUARIO', 'hola', NULL, 1),
 (4, 'NahuelSavedra@gmail.com', 'USUARIO', 'hola', 'f1b6f2857fb6d44dd73c7041e0aa0f19', 2),
 (5, 'admin2@admin.com', 'USUARIO', 'hola', '6395ebd0f4b478145ecfbaf939454fa4', NULL);
 
@@ -176,8 +200,9 @@ CREATE TABLE `vuelo` (
 --
 
 INSERT INTO `vuelo` (`idvuelo`, `dia`, `equipo_id`, `duracion`, `origen`, `horario`, `tipo_vuelo`, `destino`) VALUES
-(1, '2021-11-03', 1, 8, 'Buenos Aires', '08:00:00', 'orbital', 'Titan'),
-(4, '2021-11-02', 1, 8, 'Buenos Aires', '08:00:00', 'orbital', 'Marte');
+(1, '2021-11-03', 1, 8, 'Buenos Aires', '08:00:00', 'Orbital', 'Titan'),
+(4, '2021-11-02', 1, 8, 'Buenos Aires', '08:00:00', 'Orbital', 'Marte'),
+(10, '2021-11-02', 8, 6, 'Buenos Aires', '22:08:20', 'AA', 'Titan');
 
 --
 -- Índices para tablas volcadas
@@ -244,13 +269,13 @@ ALTER TABLE `hospital`
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `idreserva` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idreserva` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT de la tabla `turno`
 --
 ALTER TABLE `turno`
-  MODIFY `idturno` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idturno` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -262,7 +287,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `vuelo`
 --
 ALTER TABLE `vuelo`
-  MODIFY `idvuelo` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idvuelo` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas

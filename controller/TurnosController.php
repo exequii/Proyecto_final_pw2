@@ -23,8 +23,8 @@ class TurnosController
     public function reservarTurno(){
         error_reporting(0);
         if($_SESSION['usuario'] !=null){
-            $data= $_SESSION['usuario'];
-            $idusuario = $data[0]['idusuario'];
+            $data['usuario']= $_SESSION['usuario'];
+            $idusuario = $data["usuario"][0]['idusuario'];
             $data['msg'] = $this->turnosModel->setTurno($idusuario,$_POST['hospital'],$_POST['dia'],$idusuario);
             echo $this->printer->render( "view/turnosView.html", $data);
         }
