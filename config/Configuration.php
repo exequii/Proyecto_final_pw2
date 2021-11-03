@@ -41,7 +41,11 @@ class Configuration{
     }
     public function createPerfilUsuarioController(){
         require_once("controller/PerfilUsuarioController.php");
-        return new PerfilUsuarioController($this->createPerfilUsuarioModel(),$this->createPrinter());
+        return new PerfilUsuarioController($this->createPerfilUsuarioModel(),$this->createPrinter(),$this->createPDFPrinter());
+    }
+    public function createPDFPrinterController(){
+        require_once("controller/PDFPrinterController.php");
+        return new PDFPrinterController($this->createPDFPrinter());
     }
 
     /*********************************************** MODEL ************************************************************/
@@ -79,6 +83,7 @@ class Configuration{
         return new PerfilUsuarioModel($database);
     }
 
+
     /*******************************************************************************************************************/
 
     private  function getDatabase(){
@@ -108,6 +113,12 @@ class Configuration{
         require_once ('third-party/mustache/src/Mustache/Autoloader.php');
         require_once("helpers/MustachePrinter.php");
         return new MustachePrinter("view/partials");
+    }
+    private function createPDFPrinter(){
+        require_once ('third-party/dompdf/src/Autoloader.php');
+        require_once 'third-party/dompdf/autoload.inc.php';
+        require_once("helpers/PDFPrinter.php");
+        return new PDFPrinter();
     }
 
 }

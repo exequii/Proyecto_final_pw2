@@ -57,6 +57,7 @@
                     <th>Lugar de partida</th>
                     <th>Lugar de destino</th>
                     <th>Tipo de vuelo</th>
+                    <th>Comprobante</th>
                 </tr>
                 {{#datos}}
                 <tr>
@@ -68,6 +69,7 @@
                     <td>{{origen}}</td>
                     <td>{{destino}}</td>
                     <td>{{tipo_vuelo}}</td>
+                    <td><a href="/PDFPrinter/imprimirPdf">Imprimir</a></td>
                 </tr>
                 {{/datos}}
             </table>
