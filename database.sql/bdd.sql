@@ -317,3 +317,13 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE vuelo_semanal (idvuelo_semanal SMALLINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                            dia VARCHAR(15) NOT NULL,
+                            equipo_id SMALLINT NOT NULL,
+                            duracion SMALLINT,
+                            partida VARCHAR(15) NOT NULL,
+                            destino VARCHAR(15) NOT NULL,
+                            tipo_vuelo VARCHAR(15) NOT NULL,
+                            horario TIME NOT NULL ,
+                            FOREIGN KEY (equipo_id) REFERENCES equipo(idequipo));
