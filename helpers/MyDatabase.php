@@ -45,4 +45,5 @@ class MyDatabase{
     public function update($sql){
         mysqli_query($this->connection, $sql);
     }
+
 }
