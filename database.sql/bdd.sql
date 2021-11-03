@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2021 a las 02:46:39
+-- Tiempo de generación: 03-11-2021 a las 21:07:46
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 8.0.9
 
@@ -204,6 +204,32 @@ INSERT INTO `vuelo` (`idvuelo`, `dia`, `equipo_id`, `duracion`, `origen`, `horar
 (4, '2021-11-02', 1, 8, 'Buenos Aires', '08:00:00', 'Orbital', 'Marte'),
 (10, '2021-11-02', 8, 6, 'Buenos Aires', '22:08:20', 'AA', 'Titan');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vuelo_semanal`
+--
+
+CREATE TABLE `vuelo_semanal` (
+  `idvuelo_semanal` smallint(6) NOT NULL,
+  `dia` varchar(15) NOT NULL,
+  `equipo_id` smallint(6) NOT NULL,
+  `duracion` smallint(6) DEFAULT NULL,
+  `partida` varchar(15) NOT NULL,
+  `destino` varchar(15) NOT NULL,
+  `tipo_vuelo` varchar(15) NOT NULL,
+  `horario` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `vuelo_semanal`
+--
+
+INSERT INTO `vuelo_semanal` (`idvuelo_semanal`, `dia`, `equipo_id`, `duracion`, `partida`, `destino`, `tipo_vuelo`, `horario`) VALUES
+(1, 'Lunes', 1, 8, 'Buenos Aires', 'Marte', 'orbital', '08:00:00'),
+(2, 'Viernes', 7, 8, 'Buenos Aires', 'Marte', 'orbital', '10:00:00'),
+(3, 'Viernes', 7, 8, 'Buenos Aires', 'Marte', 'orbital', '10:00:00');
+
 --
 -- Índices para tablas volcadas
 --
@@ -250,6 +276,13 @@ ALTER TABLE `vuelo`
   ADD KEY `equipo_id` (`equipo_id`);
 
 --
+-- Indices de la tabla `vuelo_semanal`
+--
+ALTER TABLE `vuelo_semanal`
+  ADD PRIMARY KEY (`idvuelo_semanal`),
+  ADD KEY `equipo_id` (`equipo_id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -290,6 +323,12 @@ ALTER TABLE `vuelo`
   MODIFY `idvuelo` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT de la tabla `vuelo_semanal`
+--
+ALTER TABLE `vuelo_semanal`
+  MODIFY `idvuelo_semanal` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -312,18 +351,14 @@ ALTER TABLE `turno`
 --
 ALTER TABLE `vuelo`
   ADD CONSTRAINT `vuelo_ibfk_1` FOREIGN KEY (`equipo_id`) REFERENCES `equipo` (`idequipo`);
+
+--
+-- Filtros para la tabla `vuelo_semanal`
+--
+ALTER TABLE `vuelo_semanal`
+  ADD CONSTRAINT `vuelo_semanal_ibfk_1` FOREIGN KEY (`equipo_id`) REFERENCES `equipo` (`idequipo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-CREATE TABLE vuelo_semanal (idvuelo_semanal SMALLINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                            dia VARCHAR(15) NOT NULL,
-                            equipo_id SMALLINT NOT NULL,
-                            duracion SMALLINT,
-                            partida VARCHAR(15) NOT NULL,
-                            destino VARCHAR(15) NOT NULL,
-                            tipo_vuelo VARCHAR(15) NOT NULL,
-                            horario TIME NOT NULL ,
-                            FOREIGN KEY (equipo_id) REFERENCES equipo(idequipo));
