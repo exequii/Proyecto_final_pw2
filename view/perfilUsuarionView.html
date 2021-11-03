@@ -27,7 +27,7 @@
 <!-- Navigation Bar -->
 {{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
 <!-- Header -->
-<header class="w3-display-container w3-content" style="max-width: 1500px">
+<header class="w3-display-container w3-content" style="max-width: 1500px; min-height: 400px;">
     <img
             class="w3-image"
             src="https://estaticos.muyinteresante.es/media/cache/1140x_thumb/uploads/images/article/6113c9635bafe88526636b24/galaxias-cercanas_0.jpg"
@@ -35,9 +35,17 @@
             style="min-width: 1000px; height: 600px !important"
             width="1500"
     />
-    <div class="w3-display-left w3-col w3-margin">
+    <div class="w3-display-left w3-col w3-margin" style="width: 95%;">
+        {{#nivelVuelo}}
         <div class="w3-container w3-red w3-padding">
-            <h2><i class="fa fa-plane w3-margin-right"></i>Datos sus vuelos</h2>
+            <div>
+                El resultado de su chequeo medico le dio que su nivel de Vuelo es : {{nivelVuelo}}
+            </div>
+            
+        </div>
+        {{/nivelVuelo}}
+        <div class="w3-container w3-red w3-padding">
+            <h2><i class="fa fa-plane w3-margin-right"></i>Sus Reservas:</h2>
         </div>
             <table class="w3-table w3-light-grey">
                 <tr>
@@ -47,6 +55,7 @@
                     <th>Duracion</th>
                     <th>Horario</th>
                     <th>Lugar de partida</th>
+                    <th>Lugar de destino</th>
                     <th>Tipo de vuelo</th>
                 </tr>
                 {{#datos}}
@@ -56,12 +65,15 @@
                     <td>{{dia}}</td>
                     <td>{{duracion}}</td>
                     <td>{{horario}}</td>
-                    <td>{{partida}}</td>
+                    <td>{{origen}}</td>
+                    <td>{{destino}}</td>
                     <td>{{tipo_vuelo}}</td>
                 </tr>
                 {{/datos}}
             </table>
     </div>
+
+
 </header>
 
 <!-- Footer -->

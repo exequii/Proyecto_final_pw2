@@ -29,11 +29,13 @@ class RegistroController{
 
         if($data["clave"] == $data["repiteClave"]){
             $data['msg'] = $this->registroModel->setUsuario($data["usuario"], $data["clave"], $data["repiteClave"], $data["rol"]);
+            $data['usuario'] = null;
             echo $this->printer->render( "view/registroView.html", $data);
         }
         else{
             $data['errores'] = "Las contraseñas no coinciden";
-            echo $this->printer->render( "view/registroView.html", $data);
+            $data['usuario'] = null;
+            echo $this->printer->render( "view/registroView.html",$data);
         }
     }
 

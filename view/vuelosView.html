@@ -52,9 +52,8 @@
                         ><i class="fas fa-plane-departure"></i> Lugar de salida:</label
                         >
                         <select class="w3-input w3-border" name="origen" required>
-                            <option value="1">Buenos Aires</option>
-                            <option value="2">Shangai</option>
-                            <option value="3">Ankara</option>
+                            <option value="Buenos Aires">Buenos Aires</option>
+                            <option value="Ankara">Ankara</option>
                         </select>
                     </div>
                 </div>
@@ -64,9 +63,15 @@
                         ><i class="fas fa-plane-arrival"></i> Lugar de destino:</label
                         >
                         <select class="w3-input w3-border" name="destino" required>
-                            <option value="1">Buenos Aires</option>
-                            <option value="2">Shangai</option>
-                            <option value="3">Ankara</option>
+                            <option value="Estacion Espacial Internacional">Estacion Espacial Internacional</option>
+                            <option value="OrbiterHotel">OrbiterHotel</option>
+                            <option value="Luna">Luna</option>
+                            <option value="Marte">Marte</option>
+                            <option value="Ganimedes">Ganimedes</option>
+                            <option value="Europa">Europa</option>
+                            <option value="Lo">Lo</option>
+                            <option value="Encendalo">Encendalo</option>
+                            <option value="Titan">Titan</option>
                         </select>
                     </div>
                 </div>
@@ -84,6 +89,9 @@
                 <button class="w3-button w3-dark-grey" type="submit">
                     <i class="fa fa-search w3-margin-right"></i> Buscar vuelos
                 </button>
+                {{#error}}
+          <div class="w3-grey w3-padding w3-margin-top">{{error}}</div>
+          {{/error}}
 </header>
 
 <!-- Footer -->

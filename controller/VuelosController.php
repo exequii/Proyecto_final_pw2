@@ -21,9 +21,9 @@ class VuelosController
 
     public function showVuelos(){
         $data['dia'] = $_POST['dia'];
-        $data['vuelos'] = $this->vuelosModel->getVuelos($data['dia']);
-//        var_dump($data['vuelos']);
-//        die();
+        $data['origen'] = $_POST['origen'];
+        $data['destino'] = $_POST['destino'];
+        $data['vuelos'] = $this->vuelosModel->getVuelosBuscados($data['dia'],$data['origen'],$data['destino']);
         if (isset($_SESSION['usuario'])){
             $data['usuario'] = $_SESSION['usuario'];
             echo $this->printer->render( "view/vuelosDisponiblesView.html",$data);
@@ -32,8 +32,10 @@ class VuelosController
         }
 
     }
+
     public function reservar(){
         $data['vuelo'] = $this->vuelosModel->buscarVueloPorId($_POST['vuelo']);
+        $data['cantidad'] = $_POST['cantidad'];
         $data['usuario'] = $_SESSION['usuario'];
         //chequear nivel de usuario
         $nivelUsuario = $data['usuario'][0]['nivelVuelo'];
@@ -42,30 +44,32 @@ class VuelosController
         //Preparacion de datos
         $vuelo = $data['vuelo'][0]['idvuelo'];
         $user = $data['usuario'][0]['idusuario'];
-        $cantidad = 1;
         $equipo = $data['vuelo'][0]['equipo_id'];
-        $comprobante = $this->generarComprobante("Boleto para ".$vuelo . "cantidad ".$cantidad);
+        $cantidad = $data['cantidad'];
 
+        
+        
         if ($this->chequearNivelUsuario($nivelUsuario,$nivelVuelo)) {
-            $this->vuelosModel->realizarReserva($vuelo, $user, $cantidad,$comprobante);
-            $this->vuelosModel->actualizarCapacidad($equipo, $cantidad);
+                $codigo = $this->generarCodigoComprobante("Boleto para ".$vuelo . "cantidad ".$cantidad);
+                $this->vuelosModel->realizarReserva($vuelo, $user, $cantidad,$codigo);
+                $this->vuelosModel->actualizarCapacidad($equipo, $cantidad);
+                $data['msg'] = "La reserva se ha realizado correctamente. Revise su correo.";
+                echo $this->printer->render( "view/vuelosDisponiblesView.html", $data);
         } else {
-            echo "No puede realizar la reserva por su nivel de vuelo";
+            $data['error'] = "Su nivel de vuelo no le permite viajar en este tipo de vuelo.";
+            echo $this->printer->render( "view/vuelosView.html", $data);
         }
-
-        header('Location: /index.php');
 
     }
 
-
      function chequearNivelUsuario($nivelUsuario,$nivelVuelo){
-        if ($nivelVuelo == "orbital" && $nivelUsuario == 1 || $nivelUsuario == 2 || $nivelUsuario == 3){
+        if ($nivelVuelo == "AA" && $nivelUsuario == 3){
             return true;
         }else {
             return false;
         }
     }
-    function generarComprobante($vuelo){
+    function generarCodigoComprobante($vuelo){
         return hash("crc32b",$vuelo);
     }
 
