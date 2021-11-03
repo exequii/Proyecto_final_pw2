@@ -20,10 +20,11 @@ class VuelosController
     }
 
     public function showVuelos(){
-        $data['dia'] = $_POST['dia'];
+        $data['dia'] = $this->getDia($_POST['dia']);
         $data['origen'] = $_POST['origen'];
         $data['destino'] = $_POST['destino'];
-        $data['vuelos'] = $this->vuelosModel->getVuelosBuscados($data['dia'],$data['origen'],$data['destino']);
+        $data['vuelos'] = $this->vuelosModel->getVuelosBuscadosPorDia($data['dia'],$data['origen'],$data['destino']);
+
         if (isset($_SESSION['usuario'])){
             $data['usuario'] = $_SESSION['usuario'];
             echo $this->printer->render( "view/vuelosDisponiblesView.html",$data);
@@ -34,6 +35,9 @@ class VuelosController
     }
 
     public function reservar(){
+//        var_dump($_POST['vuelo']);
+//        die();
+
         $data['vuelo'] = $this->vuelosModel->buscarVueloPorId($_POST['vuelo']);
         $data['cantidad'] = $_POST['cantidad'];
         if (!isset($_SESSION['usuario'])){
@@ -70,6 +74,15 @@ class VuelosController
     }
     function generarCodigoComprobante($vuelo){
         return hash("crc32b",$vuelo);
+    }
+
+    function getDia($fechaForm)
+    {
+        $fecha = strtotime($fechaForm);
+        $dia = date("N",$fecha);
+        $dias = array('','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo');
+        return $dias[$dia];
+
     }
 
 }

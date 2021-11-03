@@ -8,7 +8,6 @@ class PerfilUsuarioController{
     {
         $this->perfilUsuarioModel = $perfilUsuarioModel;
         $this->printer = $printer;
-        $this->pdfPrinter = $pdfPrinter;
     }
     public function show(){
         $data['datos']=$this->perfilUsuarioModel->getDatosUsuario($_SESSION['usuario'][0]['idusuario']);
