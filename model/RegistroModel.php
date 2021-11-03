@@ -35,7 +35,6 @@ class RegistroModel
         $mail->Subject = 'Verificacion de Cuenta - GauchoRocket';
         $mail->Body = 'Por favor ingrese al siguiente link para poder verificar su cuenta. http://localhost/verify?email='.$usuario.'&hash='.$hash.'';
         $mail->AltBody = 'http://localhost/verify?email='.$usuario.'&hash='.$hash.'';
-        error_reporting(0);
         $mail->Send();
         
     }

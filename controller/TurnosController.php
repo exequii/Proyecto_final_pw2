@@ -24,8 +24,9 @@ class TurnosController
         error_reporting(0);
         if($_SESSION['usuario'] !=null){
             $data['usuario']= $_SESSION['usuario'];
+            $usuario = $data['usuario'][0]['usuario'];
             $idusuario = $data["usuario"][0]['idusuario'];
-            $data['msg'] = $this->turnosModel->setTurno($idusuario,$_POST['hospital'],$_POST['dia'],$idusuario);
+            $data['msg'] = $this->turnosModel->setTurno($usuario,$_POST['hospital'],$_POST['dia'],$idusuario);
             echo $this->printer->render( "view/turnosView.html", $data);
         }
         else{
