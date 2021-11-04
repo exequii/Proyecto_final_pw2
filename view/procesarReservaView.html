@@ -174,16 +174,28 @@
       </div>
     </header>
     <main>
-      <div class="w3-container">
-        <h3 class="text-center">Asientos</h3>
+      <div class="w3-container w3-margin">
+        <h3 class="w3-center">Asientos</h3>
         <div class="w3-row">
+          <div class="w3-col w3-margin w3-padding w3-center" style="width:7%"><p>A</p></div>
+          <div class="w3-col w3-margin w3-padding w3-center" style="width:7%"><p>B</p></div>
+          <div class="w3-col w3-margin w3-padding w3-center" style="width:7%"><p>C</p></div>
+          <div class="w3-col w3-margin w3-padding w3-center" style="width:7%"><p>D</p></div>
+          <div class="w3-col w3-margin w3-padding w3-center" style="width:7%"><p>E</p></div>
+          <div class="w3-col w3-margin w3-padding w3-center" style="width:7%"><p>F</p></div>
+          <div class="w3-col w3-margin w3-padding w3-center" style="width:7%"><p>G</p></div>
+          <div class="w3-col w3-margin w3-padding w3-center" style="width:7%"><p>H</p></div>
+          <div class="w3-col w3-margin w3-padding w3-center" style="width:7%"><p>I</p></div>
+          <div class="w3-col w3-margin w3-padding w3-center" style="width:7%"><p>J</p></div>
+
           {{#asientos}}
+          <div class="w3-container w3-row-padding">
 
               {{# fila }}
-                <div class="w3-container w3-row w3-blue">
-                  <div class="w3-col w3-container w3-green" style="width:10%"><p>{{columna}}</p></div>
-                </div>
+                  <div class="w3-col w3-margin w3-green"style="width:7%"><p>{{columna}}</p></div>
               {{/ fila }}
+          </div>
+
           {{/ asientos }}
         </div>
 

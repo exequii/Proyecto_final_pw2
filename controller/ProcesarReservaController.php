@@ -97,14 +97,14 @@ class ProcesarReservaController
         $letras = array("A","B","C","D","E","F","G","H","I","J");
         for ($i = 0; $i <= 5; $i++) {
             for ($j = 0; $j <= 9; $j++) {
-                        $columna[$j] =array('columna' => $i.$letras[$j].' libre' );
+                        $columna[$j] =array('columna' => $i.$letras[$j].' Libre' );
                 }
             $fila[$i] = array('fila' =>  $columna);
         }
         foreach ($asientosOcupados as $asiento) {
             for ($j = 0; $j <= 9; $j++) {
                 if ($asiento['fila_asiento'] == $letras[$j])
-                    $fila[$asiento['numero_asiento']]['fila'][$j]['columna'] = $asiento['numero_asiento'].$letras[$j]. " reservado";
+                    $fila[$asiento['numero_asiento']]['fila'][$j]['columna'] ="reservado";
             }
         }
         return $fila;
