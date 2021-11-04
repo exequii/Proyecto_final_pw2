@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2021 a las 21:07:46
+-- Tiempo de generación: 04-11-2021 a las 17:06:05
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 8.0.9
 
@@ -43,14 +43,14 @@ CREATE TABLE `equipo` (
 --
 
 INSERT INTO `equipo` (`idequipo`, `modelo`, `capacidad`, `matricula`, `general`, `familiar`, `suite`, `tipo`) VALUES
-(1, 'Calandria', 267, 'O1', 200, 75, 25, 'Suborbital'),
+(1, 'Calandria', 300, 'O1', 200, 75, 25, 'Suborbital'),
 (2, 'Colibri', 120, 'O2', 100, 18, 2, 'Suborbital'),
 (3, 'Zorzal', 100, 'BA1', 50, 0, 50, 'BA'),
 (4, 'Carancho', 110, 'BA4', 110, 0, 0, 'BA'),
 (5, 'Aguilucho', 60, 'BB4', 0, 50, 10, 'BA'),
 (6, 'Canario', 80, 'BA14', 0, 70, 10, 'BA'),
 (7, 'Aguila', 300, 'AA13', 200, 75, 25, 'AA'),
-(8, 'Condor', 333, 'CO10', 300, 10, 40, 'AA'),
+(8, 'Condor', 350, 'CO10', 300, 10, 40, 'AA'),
 (9, 'Halcon', 200, 'HA1', 150, 25, 25, 'AA'),
 (10, 'Guanaco', 100, 'GU14', 100, 0, 0, 'AA');
 
@@ -85,26 +85,18 @@ CREATE TABLE `reserva` (
   `idreserva` smallint(6) NOT NULL,
   `vuelo_id` smallint(6) NOT NULL,
   `usuario_id` smallint(6) NOT NULL,
-  `cantidad_pasajeros` varchar(15) NOT NULL,
-  `comprobante` varchar(15) NOT NULL
+  `comprobante` varchar(15) NOT NULL,
+  `tipo_asiento` varchar(10) NOT NULL,
+  `numero_asiento` int(10) NOT NULL,
+  `fila_asiento` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `reserva`
 --
 
-INSERT INTO `reserva` (`idreserva`, `vuelo_id`, `usuario_id`, `cantidad_pasajeros`, `comprobante`) VALUES
-(31, 4, 2, '2', 'f83f2fec'),
-(36, 4, 3, '3', '8f381f7a'),
-(37, 4, 3, '3', '8f381f7a'),
-(38, 10, 3, '2', 'b6971516'),
-(39, 10, 3, '1', '2f9e44ac'),
-(40, 10, 3, '1', '2f9e44ac'),
-(41, 10, 3, '1', '2f9e44ac'),
-(42, 10, 3, '1', '2f9e44ac'),
-(51, 10, 3, '1', '2f9e44ac'),
-(52, 10, 3, '1', '2f9e44ac'),
-(53, 10, 3, '1', '2f9e44ac');
+INSERT INTO `reserva` (`idreserva`, `vuelo_id`, `usuario_id`, `comprobante`, `tipo_asiento`, `numero_asiento`, `fila_asiento`) VALUES
+(1, 1, 4, '12345678', 'General', 1, 'A');
 
 -- --------------------------------------------------------
 
@@ -192,17 +184,18 @@ CREATE TABLE `vuelo` (
   `origen` varchar(15) NOT NULL,
   `horario` time NOT NULL,
   `tipo_vuelo` varchar(15) NOT NULL,
-  `destino` varchar(50) NOT NULL
+  `destino` varchar(50) NOT NULL,
+  `general` int(10) NOT NULL,
+  `familiar` int(10) NOT NULL,
+  `suite` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `vuelo`
 --
 
-INSERT INTO `vuelo` (`idvuelo`, `dia`, `equipo_id`, `duracion`, `origen`, `horario`, `tipo_vuelo`, `destino`) VALUES
-(1, '2021-11-03', 1, 8, 'Buenos Aires', '08:00:00', 'Orbital', 'Titan'),
-(4, '2021-11-02', 1, 8, 'Buenos Aires', '08:00:00', 'Orbital', 'Marte'),
-(10, '2021-11-02', 8, 6, 'Buenos Aires', '22:08:20', 'AA', 'Titan');
+INSERT INTO `vuelo` (`idvuelo`, `dia`, `equipo_id`, `duracion`, `origen`, `horario`, `tipo_vuelo`, `destino`, `general`, `familiar`, `suite`) VALUES
+(1, '2021-11-08', 1, 5, 'Buenos Aires', '22:00:00', 'Orbital', 'Estacion Espacial Internacional', 200, 75, 25);
 
 -- --------------------------------------------------------
 
@@ -216,7 +209,7 @@ CREATE TABLE `vuelo_semanal` (
   `equipo_id` smallint(6) NOT NULL,
   `duracion` smallint(6) DEFAULT NULL,
   `partida` varchar(15) NOT NULL,
-  `destino` varchar(15) NOT NULL,
+  `destino` varchar(45) NOT NULL,
   `tipo_vuelo` varchar(15) NOT NULL,
   `horario` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -226,9 +219,16 @@ CREATE TABLE `vuelo_semanal` (
 --
 
 INSERT INTO `vuelo_semanal` (`idvuelo_semanal`, `dia`, `equipo_id`, `duracion`, `partida`, `destino`, `tipo_vuelo`, `horario`) VALUES
-(1, 'Lunes', 1, 8, 'Buenos Aires', 'Marte', 'orbital', '08:00:00'),
-(2, 'Viernes', 7, 8, 'Buenos Aires', 'Marte', 'orbital', '10:00:00'),
-(3, 'Viernes', 7, 8, 'Buenos Aires', 'Marte', 'orbital', '10:00:00');
+(1, 'Lunes', 1, 5, 'Buenos Aires', 'Estacion Espacial Internacional', 'Orbital', '22:00:00'),
+(2, 'Martes', 2, 6, 'Buenos Aires', 'OrbiterHotel', 'Orbital', '20:00:00'),
+(3, 'Miercoles', 3, 8, 'Ankara', 'Luna', 'BA', '19:00:00'),
+(4, 'Jueves', 4, 9, 'Ankara', 'Marte', 'BA', '11:00:00'),
+(5, 'Viernes', 7, 3, 'Buenos Aires', 'Ganimedes', 'AA', '09:00:00'),
+(6, 'Sabado', 8, 2, 'Buenos Aires', 'Europa', 'AA', '14:00:00'),
+(7, 'Domingo', 5, 4, 'Ankara', 'Lo', 'BA', '18:00:00'),
+(8, 'Lunes', 10, 1, 'Buenos Aires', 'Encendalo', 'AA', '15:00:00'),
+(9, 'Martes', 2, 11, 'Buenos Aires', 'Titan', 'Orbital', '16:00:00'),
+(10, 'Miercoles', 5, 8, 'Ankara', 'Europa', 'BA', '17:00:00');
 
 --
 -- Índices para tablas volcadas
@@ -326,7 +326,7 @@ ALTER TABLE `vuelo`
 -- AUTO_INCREMENT de la tabla `vuelo_semanal`
 --
 ALTER TABLE `vuelo_semanal`
-  MODIFY `idvuelo_semanal` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idvuelo_semanal` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas

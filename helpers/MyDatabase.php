@@ -24,6 +24,10 @@ class MyDatabase{
         return mysqli_fetch_all($databaseResult,MYSQLI_ASSOC);
     }
 
+    public function insertG($sql){
+        mysqli_query($this->connection, $sql);
+    }
+
     public function insert($sql,$usuario,$clave,$hash){
         //$this->connection->__construct();
         //$consulta2 = "INSERT INTO usuario (usuario, clave) VALUES (? , ?)";
@@ -34,10 +38,7 @@ class MyDatabase{
 
         //$this->connection->close();
     }
-    public function insertTurnos($idusuario,$hospital,$dia){
-        $sql = " INSERT INTO `turno` (`idturno`, `usuario_id`, `hospital_id`, `dia`) VALUES (NULL, '$idusuario', '$hospital', '$dia')";
-        mysqli_query($this->connection, $sql);
-    }
+
     public function insertQuery($sql){
         mysqli_query($this->connection, $sql);
     }

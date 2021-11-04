@@ -47,6 +47,10 @@ class Configuration{
         require_once("controller/PDFPrinterController.php");
         return new PDFPrinterController($this->createPDFPrinter());
     }
+    public function createProcesarReservaController(){
+        require_once("controller/ProcesarReservaController.php");
+        return new ProcesarReservaController( $this->createProcesarReservaModel(), $this->createPrinter(), $this->createVuelosModel());
+    }
 
     /*********************************************** MODEL ************************************************************/
 
@@ -81,6 +85,12 @@ class Configuration{
         require_once("model/PerfilUsuarioModel.php");
         $database = $this->getDatabase();
         return new PerfilUsuarioModel($database);
+    }
+
+    public function createProcesarReservaModel(){
+        require_once("model/ProcesarReservaModel.php");
+        $database = $this->getDatabase();
+        return new ProcesarReservaModel($database);
     }
 
 
