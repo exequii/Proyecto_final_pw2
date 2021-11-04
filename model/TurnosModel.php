@@ -56,4 +56,9 @@ class TurnosModel
         $sql = "SELECT * FROM hospital WHERE idhospital='".$idhospital."'";
         return $this->database->query($sql);
     }
+
+    public function insertTurnos($idusuario,$hospital,$dia){
+        $sql = " INSERT INTO `turno` (`idturno`, `usuario_id`, `hospital_id`, `dia`) VALUES (NULL, '$idusuario', '$hospital', '$dia')";
+        $this->database->insertG($sql);
+    }
 }

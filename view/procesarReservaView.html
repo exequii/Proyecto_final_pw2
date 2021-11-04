@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <title>TP FINAL - ENTREGA 1</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Raleway"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "Raleway", Arial, Helvetica, sans-serif;
+    }
+  </style>
+  <body class="w3-light-grey">
+    <!-- Navigation Bar -->
+    {{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
+    <!-- Header -->
+    <header class="w3-display-container w3-content" style="max-width: 1500px">
+      <img
+        class="w3-image"
+        src="https://estaticos.muyinteresante.es/media/cache/1140x_thumb/uploads/images/article/6113c9635bafe88526636b24/galaxias-cercanas_0.jpg"
+        alt="The Hotel"
+        style="min-width: 1000px; height: 600px !important"
+        width="1500"
+      />
+      <div class="w3-display-left w3-col">
+        <div class="w3-container w3-red w3-padding">
+          <h2>
+            <i class="fa fa-plane w3-margin-right"></i>Complete los datos de su
+            reserva:
+          </h2>
+          <form action="/procesarReserva/reservar" method="POST">
+            <table class="w3-table w3-light-grey">
+              <tr>
+                <th>Fecha</th>
+                <th>Duracion</th>
+                <th>Horario Partida</th>
+                <th>Tipo de vuelo</th>
+                <th>Origen</th>
+                <th>Destino</th>
+              </tr>
+              {{#vuelos}}
+              <tr>
+                <td>
+                  {{fecha}}<label for="fecha"></label
+                  ><input type="hidden" value="{{fecha}}" name="fecha" />
+                </td>
+                <td>
+                  {{duracion}}<label for="duracion"></label
+                  ><input type="hidden" value="{{duracion}}" name="duracion" />
+                  <label for="equipo_id"></label
+                  ><input
+                    type="hidden"
+                    value="{{equipo_id}}"
+                    name="equipo_id"
+                  />
+                </td>
+                <td>
+                  {{horario}}<label for="horario"></label
+                  ><input type="hidden" value="{{horario}}" name="horario" />
+                </td>
+                <td>
+                  {{tipo_vuelo}}<label for="tipo_vuelo"></label
+                  ><input
+                    type="hidden"
+                    value="{{tipo_vuelo}}"
+                    name="tipo_vuelo"
+                  />
+                </td>
+                <td>
+                  {{partida}}<label for="origen"></label
+                  ><input type="hidden" value="{{partida}}" name="origen" />
+                </td>
+                <td>
+                  {{destino}}<label for="destino"></label
+                  ><input type="hidden" value="{{destino}}" name="destino" />
+                </td>
+              </tr>
+              {{/vuelos}}
+            </table>
+            <div class="w3-row-padding" style="margin: 8px -16px">
+              <div class="w3-half w3-margin-bottom" style="width: 20%">
+                <label for="cantidad"
+                  ><i class="fa fa-male"></i> Cantidad de pasajes:</label
+                >
+                <select class="w3-input w3-border" name="cantidad" required>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="w3-row-padding" style="margin: 8px -16px">
+              <div class="w3-half w3-margin-bottom" style="width: 20%">
+                <label for="tipo_asiento"
+                  ><i class="fa fa-plane"></i> Seleccione la categoria:</label
+                >
+                <select class="w3-input w3-border" name="tipo_asiento" required>
+                  <option value="General">General</option>
+                  <option value="Familiar">Familiar</option>
+                  <option value="Suite">Suite</option>
+                </select>
+              </div>
+              <div class="w3-half w3-margin-bottom" style="width: 20%">
+                <label for="numero_asiento"
+                  ><i class="fa fa-plane"></i> Seleccione numero de
+                  asiento:</label
+                >
+                <select
+                  class="w3-input w3-border"
+                  name="numero_asiento"
+                  required
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+              <div class="w3-half w3-margin-bottom" style="width: 20%">
+                <label for="fila_asiento"
+                  ><i class="fa fa-plane"></i> Seleccione fila de
+                  asiento:</label
+                >
+                <select class="w3-input w3-border" name="fila_asiento" required>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="F">F</option>
+                  <option value="G">G</option>
+                  <option value="H">H</option>
+                  <option value="I">I</option>
+                  <option value="J">J</option>
+                </select>
+              </div>
+            </div>
+
+            <input
+              type="submit"
+              value="Realizar reserva"
+              class="w3-btn w3-white"
+            />
+          </form>
+          {{#msg}}
+          <div class="w3-green w3-padding w3-margin-top">{{msg}}</div>
+          {{/msg}} {{#error}}
+          <div class="w3-grey w3-padding w3-margin-top">{{error}}</div>
+          {{/error}}
+        </div>
+      </div>
+    </header>
+
+    <!-- Footer -->
+    {{> footer}}
+  </body>
+</html>

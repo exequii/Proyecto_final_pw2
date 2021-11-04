@@ -13,18 +13,18 @@ class VuelosModel{
     }
 
     public function buscarVueloPorId($id){
-        $SQL = "SELECT * FROM vuelo WHERE idvuelo = $id";
+        $SQL = "SELECT * FROM vuelo_semanal WHERE idvuelo_semanal = $id";
         return $vuelo = $this->database->query($SQL);
     }
-    public function realizarReserva($idVuelo,$idUsuario,$cantidadReservas,$comprobante){
-        $insert = "INSERT INTO `reserva` (`idreserva`, `vuelo_id`, `usuario_id`, `cantidad_pasajeros`, `comprobante`) VALUES (NULL, $idVuelo, $idUsuario, $cantidadReservas,'$comprobante')";
+    public function realizarReserva($idVuelo,$idUsuario,$comprobante){
+        $insert = "INSERT INTO `reserva` (`idreserva`, `vuelo_id`, `usuario_id`, `comprobante`) VALUES (NULL, $idVuelo, $idUsuario,'$comprobante')";
         $this->database->insertQuery($insert);
 
     }
 
-    public function actualizarCapacidad($equipo, $cantidad)
+    public function actualizarCapacidad($equipo)
     {
-        $update = "UPDATE `equipo` SET `capacidad` = `capacidad` - $cantidad WHERE `equipo`.`idequipo` = $equipo";
+        $update = "UPDATE `equipo` SET `capacidad` = `capacidad` - 1 WHERE `equipo`.`idequipo` = $equipo";
         $this->database->update($update);
     }
 }
