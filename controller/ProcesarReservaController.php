@@ -22,9 +22,12 @@ class ProcesarReservaController
     }
 
     public function showVuelo(){
+        if (isset($_SESSION['usuario'])){
+            $data['usuario'] = $_SESSION['usuario'];
+        }
         $data['fecha'] = $_POST['fecha'];
-        $idvuelo = $_POST['idvuelo'];
-        $data['vuelos'] = $this->vuelosModel->buscarVueloPorId($idvuelo);
+        $data['idvuelo'] = $_POST['idvuelo'];
+        $data['vuelos'] = $this->vuelosModel->buscarVueloPorId($data['idvuelo']);
 
         $data['vuelo'] = $this->procesarReservaModel->consultarSiElVueloYaExiste($data['fecha'],$data['vuelos'][0]['equipo_id'],$data['vuelos'][0]['horario'],$data['vuelos'][0]['tipo_vuelo'],$data['vuelos'][0]['partida'],$data['vuelos'][0]['destino']);
         
@@ -44,40 +47,31 @@ class ProcesarReservaController
     }
 
     public function reservar(){
-        $fecha = $_POST['fecha'];
-        $idequipo = $_POST['equipo_id'];
-        $duracion = $_POST['duracion'];
-        $horario = $_POST['horario'];
+        $data['usuario'] = $_SESSION['usuario'];
+        $idvuelo = $_POST['idvuelo'];
         $tipoVuelo = $_POST['tipo_vuelo'];
-        $origen = $_POST['origen'];
-        $destino = $_POST['destino'];
-        $cantidad = $_POST['cantidad'];
         $tipo_asiento = $_POST['tipo_asiento'];
         $numero_asiento = $_POST['numero_asiento'];
         $fila_asiento = $_POST['fila_asiento'];
+        $fecha = $_POST['fecha'];
+        $origen = $_POST['origen'];
+        $destino = $_POST['destino'];
 
-        //  echo $fecha;
-        //  echo $idequipo;
-        //  echo $duracion;
-        //  echo $horario;
-        //  echo $tipoVuelo;
-        //  echo $origen;
-        //  echo $destino;
-        //  echo $cantidad;
-        //  echo $tipo_asiento;
-        //  echo $numero_asiento;
-        //  echo $fila_asiento;
 
-        $this->procesarReservaModel->consultarDisponibilidadAsiento();
+        //$this->procesarReservaModel->consultarDisponibilidadAsiento();
 
-        //$comprobante = $this->generarCodigoComprobante("Boleto para ".$data['vuelo'][0] . "cantidad ");
-        //$this->procesarReservaModel->realizarReserva($data['vuelo'][0]['idvuelo'],$data['usuario'][0]['idusuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento);
-        //$this->procesarReservaModel->actualizarCapacidadVuelo();
+        $comprobante = $this->generarCodigoComprobante("Boleto para ".$tipoVuelo. "cantidad" .$fecha. "");
+        $this->procesarReservaModel->realizarReserva($idvuelo,$data['usuario'][0]['idusuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento);
+        $this->procesarReservaModel->actualizarCapacidadVuelo($tipo_asiento,$idvuelo);
+
+        $this->procesarReservaModel->enviarMailReserva($data['usuario'][0]['usuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$fecha,$origen,$destino,$tipoVuelo);
+        $data['exito'] = "Se ha realizado la reserva correctamente. Le enviaremos toda la informacion a su casilla de correo.";
+        echo $this->printer->render( "view/procesarReservaView.html",$data);
         
     }
 
-    function generarCodigoComprobante($vuelo){
-        return hash("crc32b",$vuelo);
+    function generarCodigoComprobante($tipoVuelo){
+        return hash("crc32b",$tipoVuelo);
     }
 
 }

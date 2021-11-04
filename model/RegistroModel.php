@@ -56,9 +56,8 @@ class RegistroModel
                 $hash = md5( rand(0,1000) );
                 $SQL = "INSERT INTO usuario (usuario, clave, hash) VALUES (?,?,?)";
                 $this->database->insert($SQL,$email,$password, $hash);
-                //$data['errores'] = "Su cuenta fue registrada, <br /> por favor verifique su cuenta con el correo que le enviamos.";
                 $this->enviarMailValidacion($email,$hash);
-                return "Se ha registrado correctamente";
+                return "Su cuenta fue registrada. Enviamos a su correo el mail de verificacion.";
             }else{
                 return "El mail ya se encuentra registrado.";
             }

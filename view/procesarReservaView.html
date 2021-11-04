@@ -66,6 +66,8 @@
                     value="{{equipo_id}}"
                     name="equipo_id"
                   />
+                  <label for="idvuelo"></label
+                  ><input type="hidden" value="{{idvuelo}}" name="idvuelo" />
                 </td>
                 <td>
                   {{horario}}<label for="horario"></label
@@ -163,9 +165,9 @@
               class="w3-btn w3-white"
             />
           </form>
-          {{#msg}}
-          <div class="w3-green w3-padding w3-margin-top">{{msg}}</div>
-          {{/msg}} {{#error}}
+          {{#exito}}
+          <div class="w3-green w3-padding w3-margin-top">{{exito}}</div>
+          {{/exito}} {{#error}}
           <div class="w3-grey w3-padding w3-margin-top">{{error}}</div>
           {{/error}}
         </div>

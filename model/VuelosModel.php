@@ -22,9 +22,4 @@ class VuelosModel{
 
     }
 
-    public function actualizarCapacidad($equipo)
-    {
-        $update = "UPDATE `equipo` SET `capacidad` = `capacidad` - 1 WHERE `equipo`.`idequipo` = $equipo";
-        $this->database->update($update);
-    }
 }
