@@ -37,7 +37,9 @@ class TurnosModel
 
     function setTurno($usuario, $idhospital, $dia, $idusuario)
     {
-        $this->database->insertTurnos($idusuario, $idhospital, $dia);
+        
+        $sql = " INSERT INTO `turno` (`idturno`, `usuario_id`, `hospital_id`, `dia`) VALUES (NULL, '$idusuario', '$idhospital', '$dia')";
+        $this->database->insertG($sql);
         $nivelVuelo = $this->setNivelVuelo($idusuario);
         $nombreHospital = $this->buscarNombreHospitalPorId($idhospital);
         $_SESSION['usuario'][0]['nivelVuelo'] = $nivelVuelo;
