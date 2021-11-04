@@ -31,8 +31,12 @@
   <div class="w3-panel w3-red">{{msg}}</div>
   {{/msg}}
 
-  <div class="cuerpo">
-    <div class="container pt-5 my-3 busquedas">
+  <div class="cuerpo w3-margin">
+    <div class="w3-margin">
+    <a href="/perfilAdmin/showCrearVuelo" class="w3-button w3-black">Programar vuelos semanales</a>
+    </div>
+
+    <div class="container pt-5 my-3 busquedas w3-margin">
       <h2 class="text-center">Buscar usuario</h2>
 
       <table class="table table-bordered my-5">
@@ -75,12 +79,13 @@
       </table>
     </div>
 
-    <div class="container pt-5 my-3 busquedas">
+    <div class="container pt-5 my-3 busquedas w3-margin">
       <h2 class="text-center">Buscar Turnos Medicos</h2>
 
       <table class="table table-bordered my-5">
         <thead>
           <tr>
+            <th>Usuario</th>
             <th>Sede</th>
             <th>Fecha</th>
             <th>Resultado</th>
@@ -90,9 +95,10 @@
         <tbody>
           {{#turnos}}
           <tr>
-            <td>{{idturno}}</td>
+            <td>{{usuario}}</td>
+            <td>{{nombre}}</td>
             <td>{{dia}}</td>
-            <td>{{hospital_id}}</td>
+            <td>{{nivelVuelo}}</td>
           </tr>
           {{/turnos}}
         </tbody>
