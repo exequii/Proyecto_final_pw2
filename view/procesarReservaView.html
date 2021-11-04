@@ -173,6 +173,27 @@
         </div>
       </div>
     </header>
+    <main>
+      <div class="w3-container">
+        <h3 class="text-center">Asientos</h3>
+        <div class="w3-row">
+          {{#asientos}}
+
+              {{# fila }}
+                <div class="w3-container w3-row w3-blue">
+                  <div class="w3-col w3-container w3-green" style="width:10%"><p>{{columna}}</p></div>
+                </div>
+              {{/ fila }}
+          {{/ asientos }}
+        </div>
+
+<!--          <div class="w3-col w3-container w3-red" style="width:10%">-->
+<!--          {{tipo_asiento}}-->
+<!--          {{numero_asiento}}-->
+<!--          {{fila_asiento}}-->
+<!--          </div>-->
+        </div>
+    </main>
 
     <!-- Footer -->
     {{> footer}}

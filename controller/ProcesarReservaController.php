@@ -41,7 +41,26 @@ class ProcesarReservaController
         }
         else{
             //si el vuelo no es null, es decir que ya existia, significa que tuvo una reserva previamente por lo cual debemos traernos todas las reservas.
-            $data['reservas'] = $this->procesarReservaModel->consultarPorTodasLasReservasDeUnVueloEspecifico($data['vuelo'][0]['idvuelo']);
+            $asientosOcupados = $this->procesarReservaModel->consultarPorAsientosDeUnVueloEspecifico($data['vuelo'][0]['idvuelo']);
+
+//            $fila[0] = array(
+//                'fila' => array(
+//                    $columna[0] =array('columna' => "libre" ),
+//                    $columna[1] =array('columna' => "libre" ),
+//                    $columna[2] =array('columna' => "libre" )
+//                ));
+//                $fila[1] = array(
+//                    'fila' => array(
+//                        $columna[0] =array('columna' => "libre" ),
+//                        $columna[1] =array('columna' => "ocupado" ),
+//                        $columna[2] =array('columna' => "ocupado" )
+//                        ));
+//
+            //CREO EL ARRAY DE ASIENTOS
+            $data['asientos']=$this->getAsientos($asientosOcupados);
+
+//            var_dump($asientosOcupados);
+//            die();
             echo $this->printer->render( "view/procesarReservaView.html",$data);
         }
     }
@@ -72,6 +91,23 @@ class ProcesarReservaController
 
     function generarCodigoComprobante($tipoVuelo){
         return hash("crc32b",$tipoVuelo);
+    }
+
+    function getAsientos($asientosOcupados){
+        $letras = array("A","B","C","D","E","F","G","H","I","J");
+        for ($i = 0; $i <= 5; $i++) {
+            for ($j = 0; $j <= 9; $j++) {
+                        $columna[$j] =array('columna' => $i.$letras[$j].' libre' );
+                }
+            $fila[$i] = array('fila' =>  $columna);
+        }
+        foreach ($asientosOcupados as $asiento) {
+            for ($j = 0; $j <= 9; $j++) {
+                if ($asiento['fila_asiento'] == $letras[$j])
+                    $fila[$asiento['numero_asiento']]['fila'][$j]['columna'] = $asiento['numero_asiento'].$letras[$j]. " reservado";
+            }
+        }
+        return $fila;
     }
 
 }

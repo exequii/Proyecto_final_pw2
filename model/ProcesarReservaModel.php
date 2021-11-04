@@ -37,8 +37,8 @@ class ProcesarReservaModel{
         $this->database->update($SQL);
     }
 
-    public function consultarPorTodasLasReservasDeUnVueloEspecifico($idvuelo){
-        $SQL = "SELECT * FROM `reserva` WHERE `vuelo_id` = '".$idvuelo."'";
+    public function consultarPorAsientosDeUnVueloEspecifico($idvuelo){
+        $SQL = "SELECT tipo_asiento,numero_asiento,fila_asiento FROM `reserva` WHERE `vuelo_id` = '".$idvuelo."'";
         return $this->database->query($SQL);
     }
 
