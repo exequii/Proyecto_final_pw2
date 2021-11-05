@@ -46,6 +46,14 @@ class ProcesarReservaModel{
         return $this->database->query($SQL);
     }
 
+    function chequearNivelUsuario($nivelUsuario,$tipoEquipo){
+        if (($nivelUsuario == 3) || ( ($nivelUsuario == 1 || $nivelUsuario == 2) && ($tipoEquipo == "Suborbital" || $tipoEquipo == "BA") )){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     function enviarMailReserva($usuario,$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$fecha,$origen,$destino,$tipoVuelo){
 
         $mail = new PHPMailer();

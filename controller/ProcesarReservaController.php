@@ -59,6 +59,7 @@ class ProcesarReservaController
 
     public function reservar(){
         $data['usuario'] = $_SESSION['usuario'];
+        $nivelVueloUsuario = $data['usuario'][0]['nivelVuelo'];
         $idvuelo = $_POST['idvuelo'];
         $tipoVuelo = $_POST['tipo_vuelo'];
         $tipo_asiento = $_POST['tipo_asiento'];
@@ -67,18 +68,23 @@ class ProcesarReservaController
         $fecha = $_POST['fecha'];
         $origen = $_POST['origen'];
         $destino = $_POST['destino'];
+        $idequipo = $_POST['equipo_id'];
 
+        $tipoEquipo = $this->procesarReservaModel->obtenerEquipoDelVuelo($idequipo);
 
-        //$this->procesarReservaModel->consultarDisponibilidadAsiento();
+        if($this->procesarReservaModel->chequearNivelUsuario($nivelVueloUsuario,$tipoEquipo)){
+            //echo $idvuelo,$data['usuario'][0]['idusuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento;
+            $comprobante = $this->generarCodigoComprobante("Boleto para ".$tipoVuelo. "cantidad" .$fecha. "");
+            $this->procesarReservaModel->realizarReserva($idvuelo,$data['usuario'][0]['idusuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento);
+            $this->procesarReservaModel->actualizarCapacidadVuelo($tipo_asiento,$idvuelo);
 
-        $comprobante = $this->generarCodigoComprobante("Boleto para ".$tipoVuelo. "cantidad" .$fecha. "");
-        $this->procesarReservaModel->realizarReserva($idvuelo,$data['usuario'][0]['idusuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento);
-        $this->procesarReservaModel->actualizarCapacidadVuelo($tipo_asiento,$idvuelo);
-
-        $this->procesarReservaModel->enviarMailReserva($data['usuario'][0]['usuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$fecha,$origen,$destino,$tipoVuelo);
-        $data['exito'] = "Se ha realizado la reserva correctamente. Le enviaremos toda la informacion a su casilla de correo.";
-        echo $this->printer->render( "view/procesarReservaView.html",$data);
-        
+            $this->procesarReservaModel->enviarMailReserva($data['usuario'][0]['usuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$fecha,$origen,$destino,$tipoVuelo);
+            $data['exito'] = "Se ha realizado la reserva correctamente. Le enviaremos toda la informacion a su casilla de correo.";
+            echo $this->printer->render( "view/vuelosView.html",$data);
+        }else{
+            $data['error'] = "El resultado de su chequeo medico no le permite viajar en vuelos de este tipo.";
+            echo $this->printer->render( "view/vuelosView.html",$data);
+        }
     }
 
     function generarCodigoComprobante($tipoVuelo){
@@ -97,7 +103,7 @@ class ProcesarReservaController
             foreach ($asientosOcupados as $asiento) {
                 for ($j = 0; $j <= 9; $j++) {
                     if ($asiento['fila_asiento'] == $letras[$j])
-                        $fila[$asiento['numero_asiento']]['fila'][$j]['columna'] = "Reservado";
+                        $fila[$asiento['numero_asiento']]['fila'][$j]['columna'] = "X";
                 }
             }
         }

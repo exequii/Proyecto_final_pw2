@@ -27,6 +27,8 @@
     <!-- Navigation Bar -->
     {{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
     <!-- Header -->
+
+    {{#usuario}}
     <header class="w3-display-container w3-content" style="max-width: 1500px">
       <img
         class="w3-image"
@@ -121,24 +123,7 @@
                 <label for="numero_asiento"
                   ><i class="fa fa-plane"></i> Seleccione fila(máximo: {{cantidad-filas}}):</label
                 >
-                <input type="number" min="0" max="{{cantidad-filas}}" class="w3-input">
-
-<!--                <select-->
-<!--                  class="w3-input w3-border"-->
-<!--                  name="numero_asiento"-->
-<!--                  required-->
-<!--                >-->
-<!--                  <option value="1">1</option>-->
-<!--                  <option value="2">2</option>-->
-<!--                  <option value="3">3</option>-->
-<!--                  <option value="4">4</option>-->
-<!--                  <option value="5">5</option>-->
-<!--                  <option value="6">6</option>-->
-<!--                  <option value="7">7</option>-->
-<!--                  <option value="8">8</option>-->
-<!--                  <option value="9">9</option>-->
-<!--                  <option value="10">10</option>-->
-<!--                </select>-->
+                <input type="number" min="0" max="{{cantidad-filas}}" class="w3-input" name="numero_asiento">
               </div>
               <div class="w3-half w3-margin-bottom" style="width: 20%">
                 <label for="fila_asiento"
@@ -190,14 +175,13 @@
           <div class="w3-col w3-margin w3-padding w3-center" style="width:7%"><p>J</p></div>
 
           {{#asientos}}
-          <div class="w3-container w3-row-padding">
-
+          <div class="w3-container w3-row-padding asientos">
               {{# fila }}
-                  <div class="w3-center w3-col w3-margin w3-green"style="width:7%"><p>{{columna}}</p></div>
+                  <div class="w3-center w3-col w3-margin w3-green"style="width:7%; height:19px;">{{columna}}</div>
               {{/ fila }}
           </div>
-
           {{/ asientos }}
+
         </div>
 
 <!--          <div class="w3-col w3-container w3-red" style="width:10%">-->
@@ -207,8 +191,47 @@
 <!--          </div>-->
         </div>
     </main>
+    {{/usuario}}
+
+    {{^usuario}}
+      <div class="fondo-error">
+        <h1>Debe Iniciar Sesion para poder realizar una reserva.</h1>
+        <a href="/login">Volver a Login</a>
+      </div>
+    {{/usuario}}
 
     <!-- Footer -->
     {{> footer}}
   </body>
 </html>
+
+<style>
+  .fondo-error{
+    min-height: 400px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .fondo-error h1{
+    background-color: red;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+  }
+
+  .fondo-error a{
+    padding: 10px 5px;
+    border-radius: 10px;
+    border: 1px solid white;
+    color:white;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .asientos div{
+    font-size: 0.8em;
+  }
+</style>
