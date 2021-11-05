@@ -85,12 +85,41 @@ class PerfilAdminController{
         $destino=$data['vuelo']['destino'];
         $tipo_vuelo=$data['vuelo']['tipo_vuelo'];
         $horario=$data['vuelo']['horario'];
-//
-//        var_dump($data['vuelo']);
-//        die();
-        $this->perfilAdminModel->insertVueloSemanal($dia,$equipo_id,$duracion,$partida,$destino,$tipo_vuelo,$horario);
 
-        header("Location: /view/perfilAdminView.html");
+        switch($tipo_vuelo){
+            case "Suborbital": 
+                if($equipo_id == 1 || $equipo_id == 2){
+                    $this->perfilAdminModel->insertVueloSemanal($dia,$equipo_id,$duracion,$partida,$destino,$tipo_vuelo,$horario);
+                    $data['msg'] = "Se ha registrado el vuelo correctamente.";
+                    break;
+                }else{
+                    $data['error'] = "El tipo de vuelo indicado no esta permitido con el equipo seleccionado.";
+                    break;
+                }
+            case "BA":
+                if($equipo_id == 3 || $equipo_id == 4 || $equipo_id == 5 || $equipo_id == 6){
+                    $this->perfilAdminModel->insertVueloSemanal($dia,$equipo_id,$duracion,$partida,$destino,$tipo_vuelo,$horario);
+                    $data['msg'] = "Se ha registrado el vuelo correctamente.";
+                    break;
+                }else{
+                    $data['error'] = "El tipo de vuelo indicado no esta permitido con el equipo seleccionado.";
+                    break;
+                }
+            case "AA":
+                if($equipo_id == 7 || $equipo_id == 8 || $equipo_id == 9 || $equipo_id == 10){
+                    $this->perfilAdminModel->insertVueloSemanal($dia,$equipo_id,$duracion,$partida,$destino,$tipo_vuelo,$horario);
+                    $data['msg'] = "Se ha registrado el vuelo correctamente.";
+                    break;
+                }else{
+                    $data['error'] = "El tipo de vuelo indicado no esta permitido con el equipo seleccionado.";
+                    break;
+                }
+            default:
+                    $data['error'] = "Se ha producido un error inesperado.";
+                    break;
+        }
+        $data['usuario'] = $_SESSION['usuario'];
+        echo $this->printer->render( "view/inicioView.html",$data);
     }
 }
 
