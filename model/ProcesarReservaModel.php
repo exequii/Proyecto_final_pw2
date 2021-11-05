@@ -21,6 +21,10 @@ class ProcesarReservaModel{
         $SQL = "SELECT * FROM `equipo` WHERE `idequipo` = '".$id_equipo."'";
         return $this->database->query($SQL);
     }
+    public function getCantidadAsientos($id_equipo){
+        $SQL = "SELECT capacidad FROM `equipo` WHERE `idequipo` = '".$id_equipo."'";
+        return $this->database->query($SQL);
+    }
 
     public function crearVuelo($fecha,$idequipo,$duracion,$horario,$tipoVuelo,$origen,$destino,$general,$familiar,$suite){
         $SQL = "INSERT INTO `vuelo`(`dia`, `equipo_id`, `duracion`, `origen`, `horario`, `tipo_vuelo`, `destino`, `general`, `familiar`, `suite`) VALUES ($fecha,$idequipo,$duracion,'$origen',$horario,'$tipoVuelo','$destino',$general,$familiar,$suite)";
