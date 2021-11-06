@@ -37,7 +37,7 @@
     />
     <div class="w3-display-left w3-col w3-margin" style="width: 95%;">
         {{#nivelVuelo}}
-        <div class="w3-container w3-red w3-padding">
+        <div class="w3-container w3-red w3-padding w3-margin-bottom">
             <div>
                 El resultado de su chequeo medico le dio que su nivel de Vuelo es : {{nivelVuelo}}
             </div>
@@ -49,7 +49,6 @@
         </div>
             <table class="w3-table w3-light-grey">
                 <tr>
-                    <th>Cantidad de reservas</th>
                     <th>Codigo Comprobante</th>
                     <th>Dia</th>
                     <th>Duracion</th>
@@ -61,7 +60,6 @@
                 </tr>
                 {{#datos}}
                 <tr>
-                    <td>{{cantidad_pasajeros}}</td>
                     <td>{{comprobante}}</td>
                     <td>{{dia}}</td>
                     <td>{{duracion}}</td>
