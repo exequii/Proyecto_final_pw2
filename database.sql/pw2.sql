@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-11-2021 a las 17:06:05
+-- Tiempo de generación: 07-11-2021 a las 06:18:04
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 8.0.9
 
@@ -88,15 +88,16 @@ CREATE TABLE `reserva` (
   `comprobante` varchar(15) NOT NULL,
   `tipo_asiento` varchar(10) NOT NULL,
   `numero_asiento` int(10) NOT NULL,
-  `fila_asiento` varchar(1) NOT NULL
+  `fila_asiento` varchar(1) NOT NULL,
+  `tipo_servicio` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `reserva`
 --
 
-INSERT INTO `reserva` (`idreserva`, `vuelo_id`, `usuario_id`, `comprobante`, `tipo_asiento`, `numero_asiento`, `fila_asiento`) VALUES
-(1, 1, 4, '12345678', 'General', 1, 'A');
+INSERT INTO `reserva` (`idreserva`, `vuelo_id`, `usuario_id`, `comprobante`, `tipo_asiento`, `numero_asiento`, `fila_asiento`, `tipo_servicio`) VALUES
+(1, 1, 4, '12345678', 'General', 1, 'A', '');
 
 -- --------------------------------------------------------
 

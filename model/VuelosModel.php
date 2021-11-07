@@ -22,4 +22,9 @@ class VuelosModel{
 
     }
 
+    public function obtenerEquipoDelVuelo($id_equipo){
+        $SQL = "SELECT * FROM `equipo` WHERE `idequipo` = '".$id_equipo."'";
+        return $this->database->query($SQL);
+    }
+
 }

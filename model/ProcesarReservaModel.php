@@ -31,8 +31,8 @@ class ProcesarReservaModel{
         $this->database->insertG($SQL);
     }
 
-    public function realizarReserva($idvuelo,$idusuario,$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento){
-        $SQL = "INSERT INTO `reserva`(`vuelo_id`, `usuario_id`, `comprobante`, `tipo_asiento`, `numero_asiento`,`fila_asiento`) VALUES ($idvuelo,$idusuario,'$comprobante','$tipo_asiento',$numero_asiento,'$fila_asiento')";
+    public function realizarReserva($idvuelo,$idusuario,$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$tipo_servicio){
+        $SQL = "INSERT INTO `reserva`(`vuelo_id`, `usuario_id`, `comprobante`, `tipo_asiento`, `numero_asiento`,`fila_asiento`,`tipo_servicio`) VALUES ($idvuelo,$idusuario,'$comprobante','$tipo_asiento',$numero_asiento,'$fila_asiento','$tipo_servicio')";
         $this->database->insertG($SQL);
     }
 
@@ -52,6 +52,11 @@ class ProcesarReservaModel{
         }else {
             return false;
         }
+    }
+
+    function consultarDisponibilidadAsiento($idvuelo,$tipo_asiento,$numero_asiento,$fila_asiento){
+        $SQL = "SELECT * FROM `reserva` WHERE `vuelo_id` = $idvuelo AND `tipo_asiento` = '".$tipo_asiento."' AND `numero_asiento` = $numero_asiento AND `fila_asiento` = '".$fila_asiento."'";
+        return $this->database->query($SQL);
     }
 
     function enviarMailReserva($usuario,$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$fecha,$origen,$destino,$tipoVuelo){
