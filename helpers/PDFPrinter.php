@@ -15,6 +15,9 @@ class PDFPrinter
         $origen=$_GET['origen'];
         $destino=$_GET['destino'];
         $tipoVuelo=$_GET['tipo'];
+        $tipo_servicio=$_GET['tipo_servicio'];
+        $fila_asiento=$_GET['fila_asiento'];
+        $numero_asiento=$_GET['numero_asiento'];
         // instantiate and use the dompdf class
         $dompdf = new Dompdf();
         $dompdf->loadHtml(
@@ -24,11 +27,14 @@ class PDFPrinter
             <h4>- Dia de Partida: ' .$dia.'</h4><br>
             <h4>- Punto de Partida: ' .$origen. '</h4><br>
             <h4>- Punto de Destino: ' .$destino. '</h4><br>
-            <h4>- Tipo de Vuelo: ' .$tipoVuelo. '</h4>'
+            <h4>- Tipo de Vuelo: ' .$tipoVuelo. '</h4><br>
+            <h4>- Tipo de Servicio: ' .$tipo_servicio. '</h4><br>
+            <h4>- Fila: ' .$fila_asiento. '</h4><br>
+            <h4>- Numero asiento: ' .$numero_asiento. '</h4>'
         );
 
 //      (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('A4', 'portrait');
 
 //      Render the HTML as PDF
         $dompdf->render();

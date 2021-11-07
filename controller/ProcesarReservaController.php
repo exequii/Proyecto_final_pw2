@@ -69,25 +69,24 @@ class ProcesarReservaController
         $tipo_servicio = $_POST['tipo_servicio'];
 
         $tipoEquipo = $this->procesarReservaModel->obtenerEquipoDelVuelo($idequipo);
+            if($this->chequearDisponibilidadAsiento($idvuelo,$tipo_asiento,$numero_asiento,$fila_asiento)){
+                if($this->procesarReservaModel->chequearNivelUsuario($nivelVueloUsuario,$tipoEquipo)){
+                    $comprobante = $this->generarCodigoComprobante("Boleto para ".$tipoVuelo. "cantidad" .$fecha. "");
+                    $this->procesarReservaModel->realizarReserva($idvuelo,$data['usuario'][0]['idusuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$tipo_servicio);
+                    $this->procesarReservaModel->actualizarCapacidadVuelo($tipo_asiento,$idvuelo);
 
-        if($this->chequearDisponibilidadAsiento($idvuelo,$tipo_asiento,$numero_asiento,$fila_asiento)){
-            if($this->procesarReservaModel->chequearNivelUsuario($nivelVueloUsuario,$tipoEquipo)){
-                $comprobante = $this->generarCodigoComprobante("Boleto para ".$tipoVuelo. "cantidad" .$fecha. "");
-                $this->procesarReservaModel->realizarReserva($idvuelo,$data['usuario'][0]['idusuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$tipo_servicio);
-                $this->procesarReservaModel->actualizarCapacidadVuelo($tipo_asiento,$idvuelo);
-
-                $this->procesarReservaModel->enviarMailReserva($data['usuario'][0]['usuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$fecha,$origen,$destino,$tipoVuelo);
-                $data['exito'] = "Se ha realizado la reserva correctamente. Le enviaremos toda la informacion a su casilla de correo.";
-                echo $this->printer->render( "view/vuelosView.html",$data);
-            }else{
-                $data['error'] = "El resultado de su chequeo medico no le permite viajar en vuelos de este tipo.";
+                    $this->procesarReservaModel->enviarMailReserva($data['usuario'][0]['usuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$fecha,$origen,$destino,$tipoVuelo);
+                    $data['exito'] = "Se ha realizado la reserva correctamente. Le enviaremos toda la informacion a su casilla de correo.";
+                    echo $this->printer->render( "view/vuelosView.html",$data);
+                }else{
+                    $data['error'] = "El resultado de su chequeo medico no le permite viajar en vuelos de este tipo.";
+                    echo $this->printer->render( "view/vuelosView.html",$data);
+                }
+            }
+            else{
+                $data['error'] = "El asiento seleccionado no se encuentra disponible.";
                 echo $this->printer->render( "view/vuelosView.html",$data);
             }
-        }
-        else{
-            $data['error'] = "El asiento seleccionado no se encuentra disponible.";
-            echo $this->printer->render( "view/vuelosView.html",$data);
-        }
     }
 
     function generarCodigoComprobante($tipoVuelo){

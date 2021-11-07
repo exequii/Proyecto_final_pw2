@@ -56,7 +56,10 @@
                     <th>Lugar de partida</th>
                     <th>Lugar de destino</th>
                     <th>Tipo de vuelo</th>
-                    <th>Comprobante</th>
+                    <th>Tipo de Servicio</th>
+                    <th>Fila</th>
+                    <th>Columna</th>
+                    <th>Resumen</th>
                 </tr>
                 {{#datos}}
                 <tr>
@@ -67,7 +70,10 @@
                     <td>{{origen}}</td>
                     <td>{{destino}}</td>
                     <td>{{tipo_vuelo}}</td>
-                    <td><a href="/PDFPrinter/imprimirPdf?cantidad={{cantidad_pasajeros}}&comprobante={{comprobante}}&dia={{dia}}&origen={{origen}}&destino={{destino}}&tipo={{tipo_vuelo}}" target="_blank">Imprimir</a></td>
+                    <td>{{tipo_servicio}}</td>
+                    <th>{{fila_asiento}}</th>
+                    <th>{{numero_asiento}}</th>
+                    <td><a href="/PDFPrinter/imprimirPdf?cantidad={{cantidad_pasajeros}}&comprobante={{comprobante}}&dia={{dia}}&origen={{origen}}&destino={{destino}}&tipo={{tipo_vuelo}}&tipo_servicio={{tipo_servicio}}&fila_asiento={{fila_asiento}}&numero_asiento={{numero_asiento}}" target="_blank">Imprimir</a></td>
                 </tr>
                 {{/datos}}
             </table>
