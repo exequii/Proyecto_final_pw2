@@ -41,6 +41,7 @@
             <i class="fa fa-clinic-medical w3-margin-right"></i>Vuelos
             disponibles para el dia {{dia}}
           </h2>
+          {{#vuelos}}
           <form action="/procesarReserva/showVuelo" method="POST">
             <table class="w3-table w3-light-grey">
               <tr>
@@ -53,7 +54,6 @@
                 <th>Origen</th>
                 <th>Destino</th>
               </tr>
-              {{#vuelos}}
               <tr>
                 <td>
                   <label for="idvuelo"></label
@@ -74,7 +74,6 @@
                 <td>{{origen}}</td>
                 <td>{{destino}}</td>
               </tr>
-              {{/vuelos}}
             </table>
 
             <input
@@ -83,7 +82,12 @@
               class="w3-btn w3-white w3-margin-top"
             />
           </form>
-          {{#msg}}
+          {{/vuelos}} {{^vuelos}}
+          <div>
+            No se encontraron vuelos disponibles para el origen / destino / dia
+            indicados.
+          </div>
+          {{/vuelos}} {{#msg}}
           <div class="w3-green w3-padding w3-margin-top">{{msg}}</div>
           {{/msg}} {{#error}}
           <div class="w3-grey w3-padding w3-margin-top">{{error}}</div>

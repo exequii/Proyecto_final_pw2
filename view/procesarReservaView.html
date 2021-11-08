@@ -186,10 +186,20 @@
       <div class="w3-container w3-margin">
         <h3 class="w3-center">Asientos</h3>
 
-        <div class="d-flex">
-          {{#asientos}} {{# fila }}
-          <!--<div class="w3-center w3-col w3-margin w3-green"style="width:7%; height:19px;">{{columna}}</div>-->
-          <div class="d-flex mini-margen">
+        <div class="d-flex contenedor-asientos">
+          {{#asientos}}
+
+          <div style="width: 80%; margin: 5px">
+            {{# fila }}
+
+            <div
+              class="w3-center w3-col w3-grey mini-margen"
+              style="width: 4%; height: 12px"
+            >
+              {{columna}}
+            </div>
+
+            <!-- <div class="d-flex mini-margen">
             <input
               type="radio"
               value="{{columna}}"
@@ -197,8 +207,10 @@
               {{disponible}}
             />
             <label for="asiento">{{columna}}</label>
+          </div> -->
+            {{/ fila }}
           </div>
-          {{/ fila }} {{/ asientos }}
+          {{/ asientos }}
         </div>
 
         <!--          <div class="w3-col w3-container w3-red" style="width:10%">-->
@@ -221,14 +233,19 @@
 </html>
 
 <style>
+  .contenedor-asientos {
+    justify-content: center;
+  }
+
   .d-flex {
     display: flex;
     flex-wrap: wrap;
   }
 
   .mini-margen {
-    margin: 5px;
-    font-size: 0.8em;
+    margin-left: 3%;
+    margin-right: 3%;
+    font-size: 0.6em;
   }
 
   .fondo-error {

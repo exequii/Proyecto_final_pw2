@@ -47,6 +47,7 @@
         <div class="w3-container w3-red w3-padding">
             <h2><i class="fa fa-plane w3-margin-right"></i>Sus Reservas:</h2>
         </div>
+        {{#datos}}
             <table class="w3-table w3-light-grey">
                 <tr>
                     <th>Codigo Comprobante</th>
@@ -61,7 +62,7 @@
                     <th>Columna</th>
                     <th>Resumen</th>
                 </tr>
-                {{#datos}}
+                
                 <tr>
                     <td>{{comprobante}}</td>
                     <td>{{dia}}</td>
@@ -75,8 +76,12 @@
                     <th>{{numero_asiento}}</th>
                     <td><a href="/PDFPrinter/imprimirPdf?cantidad={{cantidad_pasajeros}}&comprobante={{comprobante}}&dia={{dia}}&origen={{origen}}&destino={{destino}}&tipo={{tipo_vuelo}}&tipo_servicio={{tipo_servicio}}&fila_asiento={{fila_asiento}}&numero_asiento={{numero_asiento}}" target="_blank">Imprimir</a></td>
                 </tr>
-                {{/datos}}
+               
             </table>
+        {{/datos}}
+        {{^datos}}
+            <div style="background-color: whitesmoke; color: black;" class="w3-padding">No tiene reservas realizadas por el momento.</div>
+        {{/datos}}
     </div>
 
 

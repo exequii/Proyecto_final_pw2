@@ -107,7 +107,7 @@ class ProcesarReservaController
             foreach ($asientosOcupados as $asiento) {
                 for ($j = 0; $j <= 9; $j++) {
                     if ($asiento['fila_asiento'] == $letras[$j])
-                        $fila[$asiento['numero_asiento']]['fila'][$j]['columna'] = "X";
+                        $fila[$asiento['numero_asiento']]['fila'][$j]['columna'] = "Reservado";
                         //$fila[$asiento['numero_asiento']]['fila'][$j]['disponible'] = "disabled";
                         
                 }
