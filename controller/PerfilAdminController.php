@@ -22,6 +22,11 @@ class PerfilAdminController{
             }
             $data['usuarios'] = $this->loginModel->getUsuarios();
             $data['turnos'] = $this->perfilAdminModel->getTurnos();
+            $data['lista'] = $this->perfilAdminModel->getListaEspera();
+            $data['vuelos'] = $this->perfilAdminModel->getListaVuelos();
+            $data['semanales'] = $this->perfilAdminModel->getVuelosSemanales();
+            $data['equipos'] = $this->perfilAdminModel->getInfoEquipos();
+            $data['reservas'] = $this->perfilAdminModel->getReservas();
             echo $this->printer->render( "view/perfilAdminView.html",$data);
         }else {
             echo $this->printer->render( "view/perfilAdminView.html");
@@ -63,8 +68,6 @@ class PerfilAdminController{
     }
     public function showCrearVuelo(){
         $data['equipos'] = $this->perfilAdminModel->getEquipos();
-//        var_dump($data['equipos']);
-//        die();
         if (isset($_SESSION['usuario'])){
             $data['usuario'] = $_SESSION['usuario'];
             if (isset($_SESSION['admin'])){
@@ -119,6 +122,7 @@ class PerfilAdminController{
                     break;
         }
         $data['usuario'] = $_SESSION['usuario'];
+        $data['admin'] = $_SESSION['admin'];
         echo $this->printer->render( "view/inicioView.html",$data);
     }
 }

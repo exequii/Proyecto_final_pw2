@@ -12,6 +12,16 @@ class ProcesarReservaModel{
         $this->database = $database;
     }
 
+    public function agregarListaDeEspera($idvuelo, $idusuario){
+        $SQL ="INSERT INTO `lista_espera`(`idvuelo`, `idusuario`) VALUES ($idvuelo, $idusuario)";
+        $this->database->insertG($SQL);
+    }
+
+    public function traerCapacidadActualVueloPorId($tipo_asiento,$idvuelo){
+        $SQL = "SELECT * FROM `vuelo` WHERE `idvuelo` = '".$idvuelo."'";
+        return $this->database->query($SQL);
+    }
+    
     public function consultarSiElVueloYaExiste($fecha,$idequipo,$horario,$tipoVuelo,$origen,$destino){
         $SQL = "SELECT * FROM `vuelo` WHERE `equipo_id` = '".$idequipo."' AND `dia` = '".$fecha."' AND `horario` = '".$horario."' AND `tipo_vuelo` = '".$tipoVuelo."' AND `origen` = '".$origen."' AND `destino` = '".$destino."'";
         return $this->database->query($SQL);
@@ -27,8 +37,10 @@ class ProcesarReservaModel{
     }
 
     public function crearVuelo($fecha,$idequipo,$duracion,$horario,$tipoVuelo,$origen,$destino,$general,$familiar,$suite){
-        $SQL = "INSERT INTO `vuelo`(`dia`, `equipo_id`, `duracion`, `origen`, `horario`, `tipo_vuelo`, `destino`, `general`, `familiar`, `suite`) VALUES ($fecha,$idequipo,$duracion,'$origen',$horario,'$tipoVuelo','$destino',$general,$familiar,$suite)";
+        $SQL = "INSERT INTO `vuelo`(`dia`, `equipo_id`, `duracion`, `origen`, `horario`, `tipo_vuelo`, `destino`, `general`, `familiar`, `suite`) VALUES ('$fecha',$idequipo,$duracion,'$origen','$horario','$tipoVuelo','$destino',$general,$familiar,$suite)";
         $this->database->insertG($SQL);
+        $SQL2 = "SELECT idvuelo FROM `vuelo` WHERE `dia` = '".$fecha."' AND `equipo_id` = $idequipo AND `duracion` = $duracion AND `origen` = '".$origen." AND `horario` = '".$horario."' AND `tipo_vuelo` = '".$tipoVuelo."' AND `destino` = '".$destino."'";
+        return $this->database->query($SQL2);
     }
 
     public function realizarReserva($idvuelo,$idusuario,$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$tipo_servicio){

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2021 a las 06:18:04
+-- Tiempo de generación: 10-11-2021 a las 14:05:31
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 8.0.9
 
@@ -78,6 +78,25 @@ INSERT INTO `hospital` (`idhospital`, `nombre`, `capacidad`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `lista_espera`
+--
+
+CREATE TABLE `lista_espera` (
+  `id_lista_espera` smallint(6) NOT NULL,
+  `idvuelo` smallint(6) NOT NULL,
+  `idusuario` smallint(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `lista_espera`
+--
+
+INSERT INTO `lista_espera` (`id_lista_espera`, `idvuelo`, `idusuario`) VALUES
+(1, 1, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `reserva`
 --
 
@@ -97,7 +116,10 @@ CREATE TABLE `reserva` (
 --
 
 INSERT INTO `reserva` (`idreserva`, `vuelo_id`, `usuario_id`, `comprobante`, `tipo_asiento`, `numero_asiento`, `fila_asiento`, `tipo_servicio`) VALUES
-(1, 1, 4, '12345678', 'General', 1, 'A', '');
+(1, 1, 4, '12345678', 'General', 1, 'A', 'Standard'),
+(54, 1, 3, '8deb3e1a', 'General', 8, 'A', 'Standard'),
+(56, 11, 3, 'c117c17d', 'general', 1, 'A', 'Standard'),
+(57, 11, 3, 'c117c17d', 'general', 10, 'A', 'Standard');
 
 -- --------------------------------------------------------
 
@@ -117,33 +139,20 @@ CREATE TABLE `turno` (
 --
 
 INSERT INTO `turno` (`idturno`, `usuario_id`, `hospital_id`, `dia`) VALUES
-(4, 1, 1, '2021-10-26'),
-(5, 1, 1, '2021-10-29'),
-(6, 1, 2, '2021-10-30'),
 (7, 2, 1, '2021-10-30'),
 (8, 2, 3, '2021-10-30'),
 (9, 2, 2, '2021-11-30'),
 (10, 2, 1, '2021-10-30'),
 (11, 3, 1, '2021-10-30'),
-(12, 3, 2, '2021-10-30'),
 (13, 3, 3, '2021-10-31'),
 (14, 2, 2, '2021-10-28'),
 (17, 2, 1, '2021-11-27'),
 (18, 2, 2, '2021-11-27'),
-(19, 3, 1, '2021-11-03'),
-(35, 3, 1, '2021-11-24'),
 (36, 3, 1, '2021-11-04'),
-(37, 3, 1, '2021-11-05'),
-(38, 3, 1, '2021-11-04'),
-(39, 3, 1, '2021-11-04'),
-(40, 3, 1, '2021-11-13'),
-(41, 3, 1, '2021-11-13'),
-(42, 3, 1, '2021-11-13'),
-(43, 3, 1, '2021-11-19'),
-(44, 3, 1, '2021-11-06'),
-(45, 3, 1, '2021-11-02'),
 (46, 3, 1, '2021-11-07'),
-(47, 3, 1, '2021-11-07');
+(47, 3, 1, '2021-11-07'),
+(48, 3, 1, '2021-11-08'),
+(49, 3, 1, '2021-11-09');
 
 -- --------------------------------------------------------
 
@@ -167,9 +176,11 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idusuario`, `usuario`, `rol`, `clave`, `hash`, `nivelVuelo`) VALUES
 (1, 'admin@admin.com', 'ADMIN', 'admin', NULL, NULL),
 (2, 'nsavedra97@gmail.com', 'USUARIO', 'hola', NULL, 3),
-(3, 'ari@ari.com', 'USUARIO', 'hola', NULL, 1),
+(3, 'ari@ari.com', 'USUARIO', 'hola', NULL, 3),
 (4, 'NahuelSavedra@gmail.com', 'USUARIO', 'hola', 'f1b6f2857fb6d44dd73c7041e0aa0f19', 2),
-(5, 'admin2@admin.com', 'USUARIO', 'hola', '6395ebd0f4b478145ecfbaf939454fa4', NULL);
+(5, 'admin2@admin.com', 'USUARIO', 'hola', '6395ebd0f4b478145ecfbaf939454fa4', NULL),
+(8, 'ezequieldamian1@gmail.com', 'USUARIO', 'asd', NULL, NULL),
+(9, 'ezequiel.sanson@hotmail.com', 'USUARIO', 'asd', 'bac9162b47c56fc8a4d2a519803d51b3', NULL);
 
 -- --------------------------------------------------------
 
@@ -196,7 +207,8 @@ CREATE TABLE `vuelo` (
 --
 
 INSERT INTO `vuelo` (`idvuelo`, `dia`, `equipo_id`, `duracion`, `origen`, `horario`, `tipo_vuelo`, `destino`, `general`, `familiar`, `suite`) VALUES
-(1, '2021-11-08', 1, 5, 'Buenos Aires', '22:00:00', 'Orbital', 'Estacion Espacial Internacional', 200, 75, 25);
+(1, '2021-11-08', 1, 5, 'Buenos Aires', '22:00:00', 'Orbital', 'Estacion Espacial Internacional', 0, 0, 0),
+(11, '2021-11-10', 3, 8, 'Ankara', '19:00:00', 'BA', 'Luna', 48, 0, 50);
 
 -- --------------------------------------------------------
 
@@ -229,7 +241,9 @@ INSERT INTO `vuelo_semanal` (`idvuelo_semanal`, `dia`, `equipo_id`, `duracion`, 
 (7, 'Domingo', 5, 4, 'Ankara', 'Lo', 'BA', '18:00:00'),
 (8, 'Lunes', 10, 1, 'Buenos Aires', 'Encendalo', 'AA', '15:00:00'),
 (9, 'Martes', 2, 11, 'Buenos Aires', 'Titan', 'Orbital', '16:00:00'),
-(10, 'Miercoles', 5, 8, 'Ankara', 'Europa', 'BA', '17:00:00');
+(10, 'Miercoles', 5, 8, 'Ankara', 'Europa', 'BA', '17:00:00'),
+(11, 'Lunes', 1, 2, 'Buenos Aires', 'Estacion Espacial Internacional', 'Suborbital', '12:10:00'),
+(12, 'Domingo', 1, 3, 'Buenos Aires', 'Estacion Espacial Internacional', 'Suborbital', '13:12:00');
 
 --
 -- Índices para tablas volcadas
@@ -246,6 +260,14 @@ ALTER TABLE `equipo`
 --
 ALTER TABLE `hospital`
   ADD PRIMARY KEY (`idhospital`);
+
+--
+-- Indices de la tabla `lista_espera`
+--
+ALTER TABLE `lista_espera`
+  ADD PRIMARY KEY (`id_lista_espera`),
+  ADD KEY `lista_ibfk_1` (`idusuario`),
+  ADD KEY `lista_ibfk_2` (`idvuelo`);
 
 --
 -- Indices de la tabla `reserva`
@@ -300,38 +322,51 @@ ALTER TABLE `hospital`
   MODIFY `idhospital` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `lista_espera`
+--
+ALTER TABLE `lista_espera`
+  MODIFY `id_lista_espera` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `idreserva` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `idreserva` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT de la tabla `turno`
 --
 ALTER TABLE `turno`
-  MODIFY `idturno` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `idturno` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idusuario` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `vuelo`
 --
 ALTER TABLE `vuelo`
-  MODIFY `idvuelo` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idvuelo` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `vuelo_semanal`
 --
 ALTER TABLE `vuelo_semanal`
-  MODIFY `idvuelo_semanal` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idvuelo_semanal` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `lista_espera`
+--
+ALTER TABLE `lista_espera`
+  ADD CONSTRAINT `lista_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`),
+  ADD CONSTRAINT `lista_ibfk_2` FOREIGN KEY (`idvuelo`) REFERENCES `vuelo` (`idvuelo`);
 
 --
 -- Filtros para la tabla `reserva`
@@ -363,3 +398,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+

@@ -29,23 +29,25 @@
   {{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
   {{#msg}}
   <div class="w3-panel w3-red">{{msg}}</div>
-  {{/msg}}
-  {{#error}}
+  {{/msg}} {{#error}}
   <div class="w3-panel w3-red">{{error}}</div>
   {{/error}}
 
   <div class="cuerpo w3-margin">
     <div class="w3-margin">
-    <a href="/perfilAdmin/showCrearVuelo" class="w3-button w3-black">Programar vuelos semanales</a>
+      <a href="/perfilAdmin/showCrearVuelo" class="w3-button w3-black"
+        >Programar vuelos semanales</a
+      >
     </div>
 
     <div class="container pt-5 my-3 busquedas w3-margin">
-      <h2 class="text-center">Buscar usuario</h2>
+      <h2 class="text-center">Usuarios</h2>
 
       <table class="table table-bordered my-5">
         <thead>
           <tr>
-            <th>Nombre</th>
+            <th>Id Usuario</th>
+            <th>Usuario</th>
             <th>Rol</th>
           </tr>
         </thead>
@@ -53,6 +55,7 @@
         <tbody>
           {{#usuarios}}
           <tr>
+            <td>{{idusuario}}</td>
             <td>{{usuario}}</td>
             <td>
               <form
@@ -83,7 +86,113 @@
     </div>
 
     <div class="container pt-5 my-3 busquedas w3-margin">
-      <h2 class="text-center">Buscar Turnos Medicos</h2>
+      <h2 class="text-center">Vuelos Activos</h2>
+
+      <table class="table table-bordered my-5">
+        <thead>
+          <tr>
+            <th>Id de Vuelo</th>
+            <th>Id de Equipo</th>
+            <th>Tipo de Vuelo</th>
+            <th>Dia</th>
+            <th>Duracion</th>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>General Disponible</th>
+            <th>Familiar Disponible</th>
+            <th>Suite Disponible</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#vuelos}}
+          <tr>
+            <td>{{idvuelo}}</td>
+            <td>{{equipo_id}}</td>
+            <td>{{tipo_vuelo}}</th>
+            <td>{{dia}}</th>
+            <td>{{duracion}}</th>
+            <td>{{origen}}</th>
+            <td>{{destino}}</th>
+            <td>{{general}}</th>
+            <td>{{familiar}}</th>
+            <td>{{suite}}</th>
+          </tr>
+          {{/vuelos}}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container pt-5 my-3 busquedas w3-margin">
+      <h2 class="text-center">Vuelos Semanales</h2>
+
+      <table class="table table-bordered my-5">
+        <thead>
+          <tr>
+            <th>Id de Vuelo</th>
+            <th>Id de Equipo</th>
+            <th>Tipo de Vuelo</th>
+            <th>Dia</th>
+            <th>Duracion</th>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Horario</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#semanales}}
+          <tr>
+            <td>{{idvuelo_semanal}}</td>
+            <td>{{equipo_id}}</td>
+            <td>{{tipo_vuelo}}</th>
+            <td>{{dia}}</th>
+            <td>{{duracion}}</th>
+            <td>{{partida}}</th>
+            <td>{{destino}}</th>
+            <td>{{horario}}</th>
+          </tr>
+          {{/semanales}}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container pt-5 my-3 busquedas w3-margin">
+      <h2 class="text-center">Equipos de Vuelo</h2>
+
+      <table class="table table-bordered my-5">
+        <thead>
+          <tr>
+            <th>Id de Equipo</th>
+            <th>Modelo</th>
+            <th>Matricula</th>
+            <th>Tipo de Vuelo</th>
+            <th>Capacidad Total</th>
+            <th>Capacidad General</th>
+            <th>Capacidad Familiar</th>
+            <th>Capacidad Suite</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#equipos}}
+          <tr>
+            <td>{{idequipo}}</td>
+            <td>{{modelo}}</td>
+            <td>{{matricula}}</th>
+            <td>{{tipo}}</th>
+            <td>{{capacidad}}</th>
+            <td>{{general}}</th>
+            <td>{{familiar}}</th>
+            <td>{{suite}}</th>
+          </tr>
+          {{/equipos}}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container pt-5 my-3 busquedas w3-margin">
+      <h2 class="text-center">Turnos Medicos</h2>
 
       <table class="table table-bordered my-5">
         <thead>
@@ -104,6 +213,62 @@
             <td>{{nivelVuelo}}</td>
           </tr>
           {{/turnos}}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container pt-5 my-3 busquedas w3-margin">
+      <h2 class="text-center">Reservas</h2>
+
+      <table class="table table-bordered my-5">
+        <thead>
+          <tr>
+            <th>Id Reserva</th>
+            <th>Id de Vuelo</th>
+            <th>Id de Usuario</th>
+            <th>Comprobante</th>
+            <th>Tipo de Asiento</th>
+            <th>Numero</th>
+            <th>Fila</th>
+            <th>Servicio</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#reservas}}
+          <tr>
+            <td>{{idreserva}}</td>
+            <td>{{vuelo_id}}</td>
+            <td>{{usuario_id}}</th>
+            <td>{{comprobante}}</th>
+            <td>{{tipo_asiento}}</th>
+            <td>{{numero_asiento}}</th>
+            <td>{{fila_asiento}}</th>
+            <td>{{tipo_servicio}}</th>
+          </tr>
+          {{/reservas}}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container pt-5 my-3 busquedas w3-margin">
+      <h2 class="text-center">Lista de Espera</h2>
+
+      <table class="table table-bordered my-5">
+        <thead>
+          <tr>
+            <th>Id de Usuario</th>
+            <th>Id de Vuelo</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#lista}}
+          <tr>
+            <td>{{idusuario}}</td>
+            <td>{{idvuelo}}</td>
+          </tr>
+          {{/lista}}
         </tbody>
       </table>
     </div>

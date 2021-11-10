@@ -32,8 +32,10 @@ class ProcesarReservaController
         $data['vuelo'] = $this->procesarReservaModel->consultarSiElVueloYaExiste($data['fecha'],$data['vuelos'][0]['equipo_id'],$data['vuelos'][0]['horario'],$data['vuelos'][0]['tipo_vuelo'],$data['vuelos'][0]['partida'],$data['vuelos'][0]['destino']);
         
         if($data['vuelo'] == null){
+            
             $data['equipo']= $this->procesarReservaModel->obtenerEquipoDelVuelo($data['vuelos'][0]['equipo_id']);
-            $this->procesarReservaModel->crearVuelo($data['fecha'],$data['vuelos'][0]['equipo_id'],$data['vuelos'][0]['duracion'],
+
+            $data['vueloactivo'] = $this->procesarReservaModel->crearVuelo($data['fecha'],$data['vuelos'][0]['equipo_id'],$data['vuelos'][0]['duracion'],
             $data['vuelos'][0]['horario'],$data['vuelos'][0]['tipo_vuelo'],$data['vuelos'][0]['partida'],
             $data['vuelos'][0]['destino'],$data['equipo'][0]['general'],$data['equipo'][0]['familiar'],$data['equipo'][0]['suite']);
 
@@ -44,6 +46,7 @@ class ProcesarReservaController
             echo $this->printer->render( "view/procesarReservaView.html",$data);
         }
         else{
+            $data['vueloactivo'] = $data['vuelo'][0]['idvuelo'];
             $asientosOcupados = $this->procesarReservaModel->consultarPorAsientosDeUnVueloEspecifico($data['vuelo'][0]['idvuelo']);
 
             $cantidadAsientos = $this->procesarReservaModel->getCantidadAsientos($data['vuelos'][0]['equipo_id']);
@@ -57,7 +60,7 @@ class ProcesarReservaController
     public function reservar(){
         $data['usuario'] = $_SESSION['usuario'];
         $nivelVueloUsuario = $data['usuario'][0]['nivelVuelo'];
-        $idvuelo = $_POST['idvuelo'];
+        $idvuelo = $_POST['idvueloactivo'];
         $tipoVuelo = $_POST['tipo_vuelo'];
         $tipo_asiento = $_POST['tipo_asiento'];
         $numero_asiento = $_POST['numero_asiento'];
@@ -69,6 +72,8 @@ class ProcesarReservaController
         $tipo_servicio = $_POST['tipo_servicio'];
 
         $tipoEquipo = $this->procesarReservaModel->obtenerEquipoDelVuelo($idequipo);
+
+        if($this->chequearDisponibilidadVuelo($tipo_asiento,$idvuelo,$data['usuario'][0]['idusuario'])){
             if($this->chequearDisponibilidadAsiento($idvuelo,$tipo_asiento,$numero_asiento,$fila_asiento)){
                 if($this->procesarReservaModel->chequearNivelUsuario($nivelVueloUsuario,$tipoEquipo)){
                     $comprobante = $this->generarCodigoComprobante("Boleto para ".$tipoVuelo. "cantidad" .$fecha. "");
@@ -87,6 +92,11 @@ class ProcesarReservaController
                 $data['error'] = "El asiento seleccionado no se encuentra disponible.";
                 echo $this->printer->render( "view/vuelosView.html",$data);
             }
+        }else{
+            $data['error'] = "No hay disponibilidad de ningun asiento en el vuelo indicado. Lo agregaremos a una lista de espera.";
+            echo $this->printer->render( "view/vuelosView.html",$data);
+        }
+            
     }
 
     function generarCodigoComprobante($tipoVuelo){
@@ -122,6 +132,16 @@ class ProcesarReservaController
             return true;
         }
         else{
+            return false;
+        }
+    }
+
+    function chequearDisponibilidadVuelo($tipo_asiento,$idvuelo,$idusuario){
+        $data['vuelo'] = $this->procesarReservaModel->traerCapacidadActualVueloPorId($tipo_asiento,$idvuelo);
+        if($data['vuelo'][0][$tipo_asiento] > 1){
+            return true;
+        }else{
+            $this->procesarReservaModel->agregarListaDeEspera($idvuelo,$idusuario);
             return false;
         }
     }
