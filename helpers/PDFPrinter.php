@@ -36,7 +36,7 @@ class PDFPrinter
             <h4>- Tipo de Servicio: ' .$tipo_servicio. '</h4><br>
             <h4>- Fila: ' .$fila_asiento. '</h4><br>
             <h4>- Numero asiento: ' .$numero_asiento. '</h4><br>
-            <img src="'.$urlImagen.'"/>'.$urlImagen.'
+            <img src="'.$urlImagen.'"/>
             '
         );
 

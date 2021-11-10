@@ -22,7 +22,7 @@ class PDFPrinterController{
 
         $tempDir = "public/";
     
-        $codeContents = "'.$url.'";
+        $codeContents = "$url";
     
         
         $fileName = '000_file_'.md5($codeContents).'.png';
@@ -30,13 +30,13 @@ class PDFPrinterController{
 
         //QRcode::png($codeContents);
          if (!file_exists($pngAbsoluteFilePath)) {
-             QRcode::png($codeContents, $pngAbsoluteFilePath,QR_ECLEVEL_L,7);
+             QRcode::png($codeContents, $pngAbsoluteFilePath,QR_ECLEVEL_L,3);
          }
          
         $urlImagen = "C:/xampp/htdocs/public/$fileName";
         //echo '<img src="../public/'.$fileName.'"/>';
-
-        return $urlImagen;
+         $urlBase64 = "data:image/png;base64," . base64_encode(file_get_contents($urlImagen));
+        return $urlBase64;
     
     }
 
