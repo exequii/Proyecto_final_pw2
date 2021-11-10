@@ -1,5 +1,7 @@
 <?php
 
+require 'vendor/autoload.php';
+
 class ProcesarReservaController
 {
     private $printer;
@@ -28,7 +30,7 @@ class ProcesarReservaController
         $data['fecha'] = $_POST['fecha'];
         $data['idvuelo'] = $_POST['idvuelo'];
         $data['vuelos'] = $this->vuelosModel->buscarVueloPorId($data['idvuelo']);
-
+        //$data['urlPagar'] = $this->inicializarMP();
         $data['vuelo'] = $this->procesarReservaModel->consultarSiElVueloYaExiste($data['fecha'],$data['vuelos'][0]['equipo_id'],$data['vuelos'][0]['horario'],$data['vuelos'][0]['tipo_vuelo'],$data['vuelos'][0]['partida'],$data['vuelos'][0]['destino']);
         
         if($data['vuelo'] == null){
@@ -76,13 +78,17 @@ class ProcesarReservaController
         if($this->chequearDisponibilidadVuelo($tipo_asiento,$idvuelo,$data['usuario'][0]['idusuario'])){
             if($this->chequearDisponibilidadAsiento($idvuelo,$tipo_asiento,$numero_asiento,$fila_asiento)){
                 if($this->procesarReservaModel->chequearNivelUsuario($nivelVueloUsuario,$tipoEquipo)){
-                    $comprobante = $this->generarCodigoComprobante("Boleto para ".$tipoVuelo. "cantidad" .$fecha. "");
-                    $this->procesarReservaModel->realizarReserva($idvuelo,$data['usuario'][0]['idusuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$tipo_servicio);
-                    $this->procesarReservaModel->actualizarCapacidadVuelo($tipo_asiento,$idvuelo);
+                    
+                     $urlPagar = $this->inicializarMP($idvuelo,$fila_asiento,$numero_asiento,$tipo_asiento);
+                     header("Location: ".$urlPagar."");
+                    die();
+                     $comprobante = $this->generarCodigoComprobante("Boleto para ".$tipoVuelo. "cantidad" .$fecha. "");
+                     $this->procesarReservaModel->realizarReserva($idvuelo,$data['usuario'][0]['idusuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$tipo_servicio);
+                     $this->procesarReservaModel->actualizarCapacidadVuelo($tipo_asiento,$idvuelo);
 
-                    $this->procesarReservaModel->enviarMailReserva($data['usuario'][0]['usuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$fecha,$origen,$destino,$tipoVuelo);
-                    $data['exito'] = "Se ha realizado la reserva correctamente. Le enviaremos toda la informacion a su casilla de correo.";
-                    echo $this->printer->render( "view/vuelosView.html",$data);
+                     $this->procesarReservaModel->enviarMailReserva($data['usuario'][0]['usuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$fecha,$origen,$destino,$tipoVuelo);
+                     //$data['exito'] = "Se ha realizado la reserva correctamente. Le enviaremos toda la informacion a su casilla de correo.";
+                    //echo $this->printer->render( "view/vuelosView.html",$data);
                 }else{
                     $data['error'] = "El resultado de su chequeo medico no le permite viajar en vuelos de este tipo.";
                     echo $this->printer->render( "view/vuelosView.html",$data);
@@ -117,7 +123,7 @@ class ProcesarReservaController
             foreach ($asientosOcupados as $asiento) {
                 for ($j = 0; $j <= 9; $j++) {
                     if ($asiento['fila_asiento'] == $letras[$j])
-                        $fila[$asiento['numero_asiento']]['fila'][$j]['columna'] = "Reservado";
+                        $fila[$asiento['numero_asiento']-1]['fila'][$j]['columna'] = "Reservado";
                         //$fila[$asiento['numero_asiento']]['fila'][$j]['disponible'] = "disabled";
                         
                 }
@@ -144,6 +150,30 @@ class ProcesarReservaController
             $this->procesarReservaModel->agregarListaDeEspera($idvuelo,$idusuario);
             return false;
         }
+    }
+    
+    function inicializarMP($idvuelo,$fila_asiento,$numero_asiento,$tipo_asiento){
+        
+        $token = "TEST-5916094541699370-111014-1eaa90a66f41c97bc3c420d2f70da2a9-238927187";
+        MercadoPago\SDK::setAccessToken($token);
+    
+        $preference = new MercadoPago\Preference();
+    
+        // Crea un ítem en la preferencia
+        $item = new MercadoPago\Item();
+        $item->title = 'Reserva Vuelo - GauchoRocket';
+        $item->quantity = 1;
+        $item->unit_price = 100;
+        $preference->back_urls = [
+            "success" => "http://localhost/vuelos&pagorealizado=true",
+            "failure" => "http://localhost/vuelos?pagorealizado=false&idvuelo=".$idvuelo."&fila=".$fila_asiento."&numero=".$numero_asiento."&tipo=".$tipo_asiento.""
+        ];
+        //
+        $preference->auto_return = 'approved';
+        $preference->items = array($item);
+        $preference->save();
+        return $preference->init_point;
+        //header("Location: ".$preference->init_point."");
     }
 
 }

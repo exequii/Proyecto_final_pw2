@@ -27,4 +27,14 @@ class VuelosModel{
         return $this->database->query($SQL);
     }
 
+    public function eliminarReserva($idvuelo,$fila,$numero){
+        $SQL = "DELETE FROM `reserva` WHERE `vuelo_id` = $idvuelo AND `fila_asiento` = '".$fila."' AND `numero_asiento` = $numero";
+        $this->database->insertG($SQL);
+    }
+
+    public function actualizarCapacidadVuelo($tipo_asiento,$idvuelo){
+        $SQL = "UPDATE `vuelo` SET `$tipo_asiento` = `$tipo_asiento` + 1 WHERE `idvuelo` = $idvuelo";
+        $this->database->update($SQL);
+    }
+
 }

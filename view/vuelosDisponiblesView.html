@@ -41,8 +41,13 @@
             <i class="fa fa-clinic-medical w3-margin-right"></i>Vuelos
             disponibles para el dia {{dia}}
           </h2>
-          {{#vuelos}}
-          <form action="/procesarReserva/showVuelo" method="POST">
+
+          <form
+            action="/procesarReserva/showVuelo"
+            method="POST"
+            style="margin-top: 10px"
+          >
+            {{#vuelos}}
             <table class="w3-table w3-light-grey">
               <tr>
                 <th></th>
@@ -61,6 +66,7 @@
                     type="radio"
                     name="idvuelo"
                     value="{{idvuelo_semanal}}"
+                    checked
                   />
                 </td>
                 <td>
@@ -75,14 +81,14 @@
                 <td>{{destino}}</td>
               </tr>
             </table>
-
+            {{/vuelos}}
             <input
               type="submit"
               value="Elegir asientos"
               class="w3-btn w3-white w3-margin-top"
             />
           </form>
-          {{/vuelos}} {{^vuelos}}
+          {{^vuelos}}
           <div>
             No se encontraron vuelos disponibles para el origen / destino / dia
             indicados.

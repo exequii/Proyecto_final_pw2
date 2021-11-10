@@ -11,6 +11,15 @@ class VuelosController
         $this->printer = $printer;
     }
     public function show(){
+        error_reporting(0);
+        $pago = $_GET['pagorealizado'];
+        if($pago == "true"){
+            $data['exito'] = "Se ha procesado el pago y la reserva correctamente";
+        }
+        if($pago == "false"){
+            $this->pagoRechazado($_GET['idvuelo'], $_GET['fila'], $_GET['numero'],$_GET['tipo']);
+            $data['error'] = "No se pudo completar el pago. Intente nuevamente.";
+        }
         if (isset($_SESSION['usuario'])){
             $data['usuario'] = $_SESSION['usuario'];
             echo $this->printer->render( "view/vuelosView.html",$data);
@@ -41,6 +50,12 @@ class VuelosController
         $dias = array('','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo');
         return $dias[$dia];
 
+    }
+
+    function pagoRechazado($idvuelo,$fila,$numero,$tipo){
+        error_reporting(1);
+        $this->vuelosModel->eliminarReserva($idvuelo,$fila,$numero);
+        $this->vuelosModel->actualizarCapacidadVuelo($tipo,$idvuelo);
     }
 
 }
