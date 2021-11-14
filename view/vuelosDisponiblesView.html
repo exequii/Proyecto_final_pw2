@@ -47,7 +47,6 @@
             method="POST"
             style="margin-top: 10px"
           >
-            {{#vuelos}}
             <table class="w3-table w3-light-grey">
               <tr>
                 <th></th>
@@ -59,6 +58,8 @@
                 <th>Origen</th>
                 <th>Destino</th>
               </tr>
+              {{#vuelos}}
+
               <tr>
                 <td>
                   <label for="idvuelo"></label
@@ -80,8 +81,8 @@
                 <td>{{origen}}</td>
                 <td>{{destino}}</td>
               </tr>
+              {{/vuelos}}
             </table>
-            {{/vuelos}}
             <input
               type="submit"
               value="Elegir asientos"
