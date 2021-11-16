@@ -44,7 +44,7 @@ class ProcesarReservaModel{
     }
 
     public function realizarReserva($idvuelo,$idusuario,$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$tipo_servicio){
-        $SQL = "INSERT INTO `reserva`(`vuelo_id`, `usuario_id`, `comprobante`, `tipo_asiento`, `numero_asiento`,`fila_asiento`,`tipo_servicio`) VALUES ($idvuelo,$idusuario,'$comprobante','$tipo_asiento',$numero_asiento,'$fila_asiento','$tipo_servicio')";
+        $SQL = "INSERT INTO `reserva`(`vuelo_id`, `usuario_id`, `comprobante`, `tipo_asiento`, `numero_asiento`,`fila_asiento`,`tipo_servicio`,`estado`,`urlPago`) VALUES ($idvuelo,$idusuario,'$comprobante','$tipo_asiento',$numero_asiento,'$fila_asiento','$tipo_servicio','Pendiente','null')";
         $this->database->insertG($SQL);
     }
 
