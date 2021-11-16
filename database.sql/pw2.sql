@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2021 a las 14:05:31
+-- Tiempo de generación: 16-11-2021 a las 02:47:05
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 8.0.9
 
@@ -108,18 +108,17 @@ CREATE TABLE `reserva` (
   `tipo_asiento` varchar(10) NOT NULL,
   `numero_asiento` int(10) NOT NULL,
   `fila_asiento` varchar(1) NOT NULL,
-  `tipo_servicio` varchar(20) NOT NULL
+  `tipo_servicio` varchar(20) NOT NULL,
+  `estado` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `reserva`
 --
 
-INSERT INTO `reserva` (`idreserva`, `vuelo_id`, `usuario_id`, `comprobante`, `tipo_asiento`, `numero_asiento`, `fila_asiento`, `tipo_servicio`) VALUES
-(1, 1, 4, '12345678', 'General', 1, 'A', 'Standard'),
-(54, 1, 3, '8deb3e1a', 'General', 8, 'A', 'Standard'),
-(56, 11, 3, 'c117c17d', 'general', 1, 'A', 'Standard'),
-(57, 11, 3, 'c117c17d', 'general', 10, 'A', 'Standard');
+INSERT INTO `reserva` (`idreserva`, `vuelo_id`, `usuario_id`, `comprobante`, `tipo_asiento`, `numero_asiento`, `fila_asiento`, `tipo_servicio`, `estado`) VALUES
+(75, 15, 11, '5f7354de', 'general', 1, 'A', 'Standard', 'Confirmado'),
+(76, 15, 11, '5f7354de', 'general', 2, 'A', 'Standard', 'Confirmado');
 
 -- --------------------------------------------------------
 
@@ -152,7 +151,13 @@ INSERT INTO `turno` (`idturno`, `usuario_id`, `hospital_id`, `dia`) VALUES
 (46, 3, 1, '2021-11-07'),
 (47, 3, 1, '2021-11-07'),
 (48, 3, 1, '2021-11-08'),
-(49, 3, 1, '2021-11-09');
+(49, 3, 1, '2021-11-09'),
+(50, 10, 1, '2021-11-16'),
+(51, 3, 1, '2021-11-15'),
+(52, 3, 1, '2021-11-15'),
+(53, 3, 1, '2021-11-16'),
+(54, 3, 1, '2021-11-15'),
+(55, 11, 1, '2021-11-15');
 
 -- --------------------------------------------------------
 
@@ -176,11 +181,10 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idusuario`, `usuario`, `rol`, `clave`, `hash`, `nivelVuelo`) VALUES
 (1, 'admin@admin.com', 'ADMIN', 'admin', NULL, NULL),
 (2, 'nsavedra97@gmail.com', 'USUARIO', 'hola', NULL, 3),
-(3, 'ari@ari.com', 'USUARIO', 'hola', NULL, 3),
+(3, 'ari@ari.com', 'USUARIO', 'hola', NULL, 1),
 (4, 'NahuelSavedra@gmail.com', 'USUARIO', 'hola', 'f1b6f2857fb6d44dd73c7041e0aa0f19', 2),
-(5, 'admin2@admin.com', 'USUARIO', 'hola', '6395ebd0f4b478145ecfbaf939454fa4', NULL),
-(8, 'ezequieldamian1@gmail.com', 'USUARIO', 'asd', NULL, NULL),
-(9, 'ezequiel.sanson@hotmail.com', 'USUARIO', 'asd', 'bac9162b47c56fc8a4d2a519803d51b3', NULL);
+(10, 'ezequiel.sanson@hotmail.com', 'USUARIO', 'asd', NULL, 3),
+(11, 'ezequieldamian1@gmail.com', 'USUARIO', 'asd', NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -208,7 +212,11 @@ CREATE TABLE `vuelo` (
 
 INSERT INTO `vuelo` (`idvuelo`, `dia`, `equipo_id`, `duracion`, `origen`, `horario`, `tipo_vuelo`, `destino`, `general`, `familiar`, `suite`) VALUES
 (1, '2021-11-08', 1, 5, 'Buenos Aires', '22:00:00', 'Orbital', 'Estacion Espacial Internacional', 0, 0, 0),
-(11, '2021-11-10', 3, 8, 'Ankara', '19:00:00', 'BA', 'Luna', 48, 0, 50);
+(11, '2021-11-10', 3, 8, 'Ankara', '19:00:00', 'BA', 'Luna', 37, 0, 50),
+(15, '2021-11-17', 3, 8, 'Ankara', '19:00:00', 'BA', 'Luna', 45, 0, 50),
+(16, '2021-11-15', 1, 2, 'Buenos Aires', '12:10:00', 'Suborbital', 'Estacion Espacial Internacional', 200, 75, 25),
+(17, '2021-11-15', 1, 5, 'Buenos Aires', '22:00:00', 'Orbital', 'Estacion Espacial Internacional', 200, 75, 25),
+(18, '2021-11-19', 7, 3, 'Buenos Aires', '09:00:00', 'AA', 'Ganimedes', 200, 75, 25);
 
 -- --------------------------------------------------------
 
@@ -331,25 +339,25 @@ ALTER TABLE `lista_espera`
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `idreserva` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `idreserva` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT de la tabla `turno`
 --
 ALTER TABLE `turno`
-  MODIFY `idturno` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `idturno` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idusuario` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `vuelo`
 --
 ALTER TABLE `vuelo`
-  MODIFY `idvuelo` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idvuelo` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `vuelo_semanal`
@@ -398,4 +406,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
