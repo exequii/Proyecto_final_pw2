@@ -42,6 +42,9 @@ class ReporteController
         }
         //var_dump($generales,$familiares,$suites);
         //die();
+        if(file_exists("./public/ocupacion.jpg")) {
+            unlink("./public/ocupacion.jpg");
+        }
         $this->graphicPrinter->imprimirBarras($nombres, $generales,$familiares,$suites);
         echo $this->printer->render( "view/admin/ocupacion.html");
     }
