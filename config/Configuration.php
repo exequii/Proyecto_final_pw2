@@ -51,6 +51,10 @@ class Configuration{
         require_once("controller/ProcesarReservaController.php");
         return new ProcesarReservaController( $this->createProcesarReservaModel(), $this->createPrinter(), $this->createVuelosModel());
     }
+    public function createReporteController(){
+        require_once("controller/ReporteController.php");
+        return new ReporteController( $this->createReporteModel(), $this->createPrinter(), $this->createGraphicPrinter());
+    }
 
     /*********************************************** MODEL ************************************************************/
 
@@ -92,6 +96,11 @@ class Configuration{
         $database = $this->getDatabase();
         return new ProcesarReservaModel($database);
     }
+    public function createReporteModel(){
+        require_once("model/ReporteModel.php");
+        $database = $this->getDatabase();
+        return new ReporteModel($database);
+    }
 
 
     /*******************************************************************************************************************/
@@ -129,6 +138,14 @@ class Configuration{
         require_once 'third-party/dompdf/autoload.inc.php';
         require_once("helpers/PDFPrinter.php");
         return new PDFPrinter();
+    }
+    private function createGraphicPrinter(){
+        require_once ('third-party/jpgraph/src/jpgraph.php');
+        require_once ('third-party/jpgraph/src/jpgraph_pie.php');
+        require_once ('third-party/jpgraph/src/jpgraph_bar.php');
+        require_once ('third-party/jpgraph/src/jpgraph_pie3d.php');
+        require_once("helpers/GraphicPrinter.php");
+        return new GraphicPrinter();
     }
 
 
