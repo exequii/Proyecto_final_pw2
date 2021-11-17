@@ -43,5 +43,6 @@ class ReporteController
         //var_dump($generales,$familiares,$suites);
         //die();
         $this->graphicPrinter->imprimirBarras($nombres, $generales,$familiares,$suites);
+        echo $this->printer->render( "view/admin/ocupacion.html");
     }
 }

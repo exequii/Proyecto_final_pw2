@@ -72,7 +72,7 @@ class GraphicPrinter
         $graph->title->Set("Tasa de ocupacion por vuelo y equipo");
 
 // Display the graph
-        $graph->Stroke();
+        $graph->Stroke("./public/ocupacion.jpg");
     }
 
 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<title>TP FINAL - ENTREGA 1</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+<link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Raleway"
+/>
+<link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Raleway", Arial, Helvetica, sans-serif;
+    }
+</style>
+</html>
+<body class="w3-light-grey">
+<!-- Navigation Bar -->
+{{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
+{{#msg}}
+<div class="w3-panel w3-red">{{msg}}</div>
+{{/msg}}
+
+<div class="cuerpo w3-margin">
+    <div class="container pt-5 my-3 busquedas">
+        <h2 class="text-center">Ver reportes</h2>
+        <div class="w3-row">
+        <a href="/reporte/getOcupacion">Tasa de ocupación por viaje y equipo</a>
+        <a href="">Facturacion mensual</a>
+        <a href="">Cabina mas vendida</a>
+        <a href="">Facturacion por cliente</a>
+        </div>
+
+    </div>
+</div>
+{{> footer}}
+</body>
+
+<style>
+    .cuerpo {
+        min-height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .busquedas {
+        width: 80%;
+        border: 2px solid red;
+        border-radius: 15px;
+        padding: 10px;
+    }
+
+    .centrado {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+</style>
