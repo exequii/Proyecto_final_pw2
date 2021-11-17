@@ -37,4 +37,10 @@ class VuelosModel{
         $this->database->update($SQL);
     }
 
+    public function actualizarReserva($idreserva){
+        $confirmado = "Confirmado";
+        $SQL = "UPDATE `reserva` SET `estado` = '".$confirmado."' WHERE `idreserva` = $idreserva";
+        $this->database->update($SQL);
+    }
+
 }
