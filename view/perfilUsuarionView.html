@@ -101,6 +101,7 @@
                     <th>Fila</th>
                     <th>Columna</th>
                     <th>Resumen</th>
+                    <th>Check-in</th>
                 </tr>
                 
                 <tr>
@@ -115,7 +116,8 @@
                     <th>{{fila_asiento}}</th>
                     <th>{{numero_asiento}}</th>
                     <td><a href="{{url}}">Pagar</a></td>
-                    
+                    <td><a href="/PDFPrinter/imprimirCheckIn?cantidad={{cantidad_pasajeros}}&comprobante={{comprobante}}&dia={{dia}}&origen={{origen}}&destino={{destino}}&tipo={{tipo_vuelo}}&tipo_servicio={{tipo_servicio}}&fila_asiento={{fila_asiento}}&numero_asiento={{numero_asiento}}" target="_blank">Imprimir</a></td>
+
                 </tr>
                
             </table>
