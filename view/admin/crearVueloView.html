@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<title>TP FINAL - ENTREGA 1</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+<link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Raleway"
+/>
+<link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Raleway", Arial, Helvetica, sans-serif;
+    }
+</style>
+</html>
+<body class="w3-light-grey">
+<!-- Navigation Bar -->
+{{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
+{{#msg}}
+<div class="w3-panel w3-red">{{msg}}</div>
+{{/msg}}
+
+<div class="cuerpo w3-margin">
+    <div class="container pt-5 my-3 busquedas">
+        <h2 class="text-center">Crear vuelo semanal</h2>
+        <form action="/perfilAdmin/guardarVuelo" method="POST" class="w3-container">
+            <div class="w3-input">
+                <label for="dia">Dia de vuelo</label>
+                <select class="w3-select" name="dia">
+                    <option value="" disabled selected>Seleccione el dia</option>
+                    <option value="Domingo">Domingo</option>
+                    <option value="Lunes">Lunes</option>
+                    <option value="Martes">Martes</option>
+                    <option value="Miercoles">Miercoles</option>
+                    <option value="Jueves">Jueves</option>
+                    <option value="Viernes">Viernes</option>
+                    <option value="Sabado">Sábado</option>
+                </select>
+            </div>
+
+            <div class="w3-input">
+                <label for="equipo">Equipo</label>
+                <select class="w3-select" name="equipo">
+                    <option value="" disabled selected>Seleccione el equipo</option>
+                    {{#equipos}}
+                    <option value="{{idequipo}}">{{modelo}} {{matricula}}</option>
+                    {{/equipos}}
+                </select>
+            </div>
+
+            <div class="w3-input">
+                <label for="duracion">Duracion de vuelo en hs</label>
+                <input type="number" name="duracion" min="0" max="24">
+            </div>
+
+            <div class="w3-input">
+                <label for="partida">Lugar de partida:</label>
+                <select class="w3-select" name="partida" required>
+                    <option value="Buenos Aires">Buenos Aires</option>
+                    <option value="Ankara">Ankara</option>
+                </select>
+            </div>
+
+            <div class="w3-input">
+            <label for="destino">Lugar de destino:</label>
+            <select class="w3-select" name="destino" required>
+                <option value="Estacion Espacial Internacional">Estacion Espacial Internacional</option>
+                <option value="OrbiterHotel">OrbiterHotel</option>
+                <option value="Luna">Luna</option>
+                <option value="Marte">Marte</option>
+                <option value="Ganimedes">Ganimedes</option>
+                <option value="Europa">Europa</option>
+                <option value="Lo">Lo</option>
+                <option value="Encendalo">Encendalo</option>
+                <option value="Titan">Titan</option>
+            </select>
+            </div>
+
+            <div class="w3-input">
+                <label for="tipo_vuelo">Tipo de vuelo:</label>
+                <select class="w3-select" name="tipo_vuelo" required>
+                    <option value="Suborbital">Suborbital</option>
+                    <option value="BA">Baja Aceleracion</option>
+                    <option value="AA">Alta Aceleracion</option>
+                </select>
+            </div>
+
+            <div class="w3-input">
+                <label for="horario">Horario de vuelo</label>
+                <input type="time" name="horario">
+            </div>
+
+            <div class="w3-input">
+            <input type="submit" class="w3-button w3-black" value="Cargar vuelo">
+            </div>
+        </form>
+    </div>
+</div>
+{{> footer}}
+</body>
+
+<style>
+    .cuerpo {
+        min-height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .busquedas {
+        width: 80%;
+        border: 2px solid red;
+        border-radius: 15px;
+        padding: 10px;
+    }
+
+    .centrado {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+</style>

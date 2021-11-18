@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <title>TP FINAL - ENTREGA 1</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Raleway"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "Raleway", Arial, Helvetica, sans-serif;
+    }
+  </style>
+  <body class="w3-light-grey">
+    <!-- Navigation Bar -->
+    {{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
+    <!-- Header -->
+
+    {{#usuario}}
+    <header class="w3-display-container w3-content" style="max-width: 1500px">
+      <img
+        class="w3-image"
+        src="https://estaticos.muyinteresante.es/media/cache/1140x_thumb/uploads/images/article/6113c9635bafe88526636b24/galaxias-cercanas_0.jpg"
+        alt="The Hotel"
+        style="min-width: 1000px; height: 600px !important"
+        width="1500"
+      />
+      <div class="w3-display-left w3-col">
+        <div class="w3-container w3-red w3-padding">
+          <h2>
+            <i class="fa fa-plane w3-margin-right"></i>Complete los datos de su
+            reserva:
+          </h2>
+          <form action="/procesarReserva/reservar" method="POST">
+            <table class="w3-table w3-light-grey">
+              <tr>
+                <th>Fecha</th>
+                <th>Duracion</th>
+                <th>Horario Partida</th>
+                <th>Tipo de vuelo</th>
+                <th>Origen</th>
+                <th>Destino</th>
+              </tr>
+              {{#vuelos}}
+              <tr>
+                <td>
+                  {{fecha}}<label for="fecha"></label
+                  ><input type="hidden" value="{{fecha}}" name="fecha" />
+                </td>
+                <td>
+                  {{duracion}}<label for="duracion"></label
+                  ><input type="hidden" value="{{duracion}}" name="duracion" />
+                  <label for="equipo_id"></label
+                  ><input
+                    type="hidden"
+                    value="{{equipo_id}}"
+                    name="equipo_id"
+                  />
+                </td>
+                <td>
+                  {{horario}}<label for="horario"></label
+                  ><input type="hidden" value="{{horario}}" name="horario" />
+                </td>
+                <td>
+                  {{tipo_vuelo}}<label for="tipo_vuelo"></label
+                  ><input
+                    type="hidden"
+                    value="{{tipo_vuelo}}"
+                    name="tipo_vuelo"
+                  />
+                </td>
+                <td>
+                  {{partida}}<label for="origen"></label
+                  ><input type="hidden" value="{{partida}}" name="origen" />
+                </td>
+                <td>
+                  {{destino}}<label for="destino"></label
+                  ><input type="hidden" value="{{destino}}" name="destino" />
+                </td>
+              </tr>
+              {{/vuelos}} {{#vueloactivo}}
+              <label for="idvueloactivo"></label
+              ><input
+                type="hidden"
+                value="{{vueloactivo}}"
+                name="idvueloactivo"
+              />
+              {{/vueloactivo}}
+            </table>
+            <div class="w3-row-padding" style="margin: 8px -16px">
+              <div class="w3-half w3-margin-bottom" style="width: 20%">
+                <label for="cantidad"
+                  ><i class="fa fa-male"></i> Cantidad de pasajes:</label
+                >
+                <select class="w3-input w3-border" name="cantidad" required>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="w3-row-padding" style="margin: 8px -16px">
+              <div class="w3-half w3-margin-bottom" style="width: 20%">
+                <label for="tipo_asiento"
+                  ><i class="fa fa-plane"></i> Seleccione la categoria:</label
+                >
+                <select class="w3-input w3-border" name="tipo_asiento" required>
+                  <option value="general">General</option>
+                  <option value="familiar">Familiar</option>
+                  <option value="suite">Suite</option>
+                </select>
+              </div>
+              <div class="w3-half w3-margin-bottom" style="width: 20%">
+                <label for="numero_asiento"
+                  ><i class="fa fa-plane"></i> Seleccione fila(máximo:
+                  {{cantidad-filas}}):</label
+                >
+                <input
+                  type="number"
+                  min="1"
+                  max="{{cantidad-filas}}"
+                  class="w3-input"
+                  name="numero_asiento"
+                  value="1"
+                />
+              </div>
+              <div class="w3-half w3-margin-bottom" style="width: 20%">
+                <label for="fila_asiento"
+                  ><i class="fa fa-plane"></i> Seleccione fila de
+                  asiento:</label
+                >
+                <select class="w3-input w3-border" name="fila_asiento" required>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="F">F</option>
+                  <option value="G">G</option>
+                  <option value="H">H</option>
+                  <option value="I">I</option>
+                  <option value="J">J</option>
+                </select>
+              </div>
+              <div class="w3-half w3-margin-bottom" style="width: 20%">
+                <label for="tipo_servicio"
+                  ><i class="fa fa-plane"></i> Seleccione tipo de
+                  servicio:</label
+                >
+                <select
+                  class="w3-input w3-border"
+                  name="tipo_servicio"
+                  required
+                >
+                  <option value="Standard">Standard</option>
+                  <option value="Gourmet">Gourmet</option>
+                  <option value="Spa">Spa</option>
+                </select>
+              </div>
+            </div>
+
+            <input
+              type="submit"
+              value="Realizar reserva"
+              class="w3-btn w3-white"
+            />
+          </form>
+          {{#exito}}
+          <div class="w3-green w3-padding w3-margin-top">{{exito}}</div>
+          {{/exito}} {{#error}}
+          <div class="w3-grey w3-padding w3-margin-top">{{error}}</div>
+          {{/error}}
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="w3-container w3-margin">
+        <h3 class="w3-center">Asientos</h3>
+
+        <div class="d-flex contenedor-asientos">
+          {{#asientos}}
+
+          <div style="width: 80%; margin: 5px">
+            {{# fila }}
+
+            <div
+              class="w3-center w3-col w3-grey mini-margen"
+              style="width: 4%; height: 12px"
+            >
+              {{columna}}
+            </div>
+            {{/ fila }}
+          </div>
+          {{/ asientos }}
+        </div>
+      </div>
+    </main>
+    {{/usuario}} {{^usuario}}
+    <div class="fondo-error">
+      <h1>Debe Iniciar Sesion para poder realizar una reserva.</h1>
+      <a href="/login">Volver a Login</a>
+    </div>
+    {{/usuario}}
+
+    <!-- Footer -->
+    {{> footer}}
+  </body>
+</html>
+
+<style>
+  .contenedor-asientos {
+    justify-content: center;
+  }
+
+  .d-flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .mini-margen {
+    margin-left: 3%;
+    margin-right: 3%;
+    font-size: 0.6em;
+  }
+
+  .fondo-error {
+    min-height: 400px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .fondo-error h1 {
+    background-color: red;
+    border-radius: 10px;
+    color: white;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .fondo-error a {
+    padding: 10px 5px;
+    border-radius: 10px;
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .asientos div {
+    font-size: 0.8em;
+  }
+</style>
