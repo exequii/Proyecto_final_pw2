@@ -13,16 +13,15 @@ class ReporteController
         $this->graphicPrinter = $graphicPrinter;
         $this->reporteModel = $reporteModel;
     }
-    public function show()
-    {
+
+    public function getOcupacion(){
         if ($_SESSION['usuario'][0]['rol'] == 'ADMIN'){
             $data['usuario'] = $_SESSION['usuario'];
-            echo $this->printer->render( "view/admin/reportesView.html",$data);
+            $data['admin'] = $_SESSION['admin'];
         }else {
             header("Location: /");
         }
-    }
-    public function getOcupacion(){
+
         $data['vuelos'] = $this->reporteModel->getVuelos();
 
         $nombres = array();
@@ -46,6 +45,28 @@ class ReporteController
             unlink("./public/ocupacion.jpg");
         }
         $this->graphicPrinter->imprimirBarras($nombres, $generales,$familiares,$suites);
-        echo $this->printer->render( "view/admin/ocupacion.html");
+        echo $this->printer->render( "view/admin/ocupacionView.html",$data);
+    }
+    public function getCabinaMasVendida(){
+        $data['cabinas']=$this->reporteModel->getCabinasVendidas();
+        $general= 0;
+        $familiar= 0;
+        $suite= 0;
+        foreach ($data['cabinas'] as $cabinas) {
+            if ($cabinas['tipo_asiento'] == "general") {
+                $general ++;
+            } elseif ($cabinas['tipo_asiento'] == "familiar") {
+                $familiar++;
+            } else {
+                $suite++;
+            }
+        }
+        if(file_exists("./public/cabinas.jpg")) {
+            unlink("./public/cabinas.jpg");
+        }
+
+        $this->graphicPrinter->imprimirCirculo($general,$familiar,$suite);
+        echo $this->printer->render( "view/admin/cabinasView.html",$data);
+
     }
 }

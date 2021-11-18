@@ -9,8 +9,8 @@ class GraphicPrinter
 
     }
 
-    public function imprimirCirculo(){
-        $data = array(40,60,21,33);
+    public function imprimirCirculo($general,$familiar,$suite){
+        $data = array($general,$familiar,$suite);
 
     // Create the Pie Graph.
         $graph = new PieGraph(750,650);
@@ -19,7 +19,7 @@ class GraphicPrinter
         $graph->SetTheme($theme_class);
 
     // Set A title for the plot
-        $graph->title->Set("A Simple 3D Pie Plot");
+        $graph->title->Set("Cabinas mas vendidas");
 
     // Create
         $p1 = new PiePlot3D($data);
@@ -28,7 +28,8 @@ class GraphicPrinter
         $p1->ShowBorder();
         $p1->SetColor('black');
         $p1->ExplodeSlice(1);
-        $graph->Stroke();
+        $graph->Stroke("./public/cabinas.jpg");
+
 }
     public function imprimirBarras($nombes, $generales,$familiares,$suites){
         $data1y=array(200,50,200,200);
