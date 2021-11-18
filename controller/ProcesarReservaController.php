@@ -83,8 +83,6 @@ class ProcesarReservaController
                     $comprobante = $this->generarCodigoComprobante("Boleto para ".$tipoVuelo. "cantidad" .$fecha. "");
                     $this->procesarReservaModel->realizarReserva($idvuelo,$data['usuario'][0]['idusuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$tipo_servicio);
                     $this->procesarReservaModel->actualizarCapacidadVuelo($tipo_asiento,$idvuelo);
-                    // $url = $this->inicializarMP($idvuelo);
-
 
                     $this->procesarReservaModel->enviarMailReserva($data['usuario'][0]['usuario'],$comprobante,$tipo_asiento,$numero_asiento,$fila_asiento,$fecha,$origen,$destino,$tipoVuelo);
                     $data['exito'] = "Se ha realizado la reserva. Puede realizar el pago desde su perfil de Usuario.";

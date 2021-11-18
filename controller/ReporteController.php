@@ -48,6 +48,13 @@ class ReporteController
         echo $this->printer->render( "view/admin/ocupacionView.html",$data);
     }
     public function getCabinaMasVendida(){
+        if ($_SESSION['usuario'][0]['rol'] == 'ADMIN'){
+            $data['usuario'] = $_SESSION['usuario'];
+            $data['admin'] = $_SESSION['admin'];
+        }else {
+            header("Location: /");
+        }
+        
         $data['cabinas']=$this->reporteModel->getCabinasVendidas();
         $general= 0;
         $familiar= 0;
