@@ -36,7 +36,7 @@ class PDFPrinterController{
              QRcode::png($codeContents, $pngAbsoluteFilePath,QR_ECLEVEL_L,3);
          }
          
-        $urlImagen = "C:/xampp/htdocs/proyecto-final-pw2/public/$fileName";
+        $urlImagen = "C:/xampp/htdocs/public/$fileName";
         //echo '<img src="../public/'.$fileName.'"/>';
          $urlBase64 = "data:image/png;base64," . base64_encode(file_get_contents($urlImagen));
         return $urlBase64;
