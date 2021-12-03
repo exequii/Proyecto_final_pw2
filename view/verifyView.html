@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <title>TP FINAL - ENTREGA 1</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Raleway"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "Raleway", Arial, Helvetica, sans-serif;
+    }
+  </style>
+  <body class="w3-light-grey">
+    <!-- Navigation Bar -->
+    {{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
+    <!-- Header -->
+    <div class="fondo">
+      <div class="cuerpo w3-black">
+        {{#msg}}
+        <div class="w3-panel w3-red">{{msg}}</div>
+        <a href="/" class="w3-panel w3-red"> Volver al menu principal.</a>
+        {{/msg}}
+      </div>
+    </div>
+    <!-- Footer -->
+    {{> footer}}
+  </body>
+</html>
+
+<style>
+  .fondo {
+    background: url(https://st.depositphotos.com/2229436/4390/v/950/depositphotos_43904489-stock-illustration-blue-check-mark-sign.jpg);
+    min-height: 630px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .cuerpo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+</style>

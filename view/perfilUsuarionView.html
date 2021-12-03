@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+        <html>
+        <title>TP FINAL - ENTREGA 1</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Raleway"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Raleway", Arial, Helvetica, sans-serif;
+        }
+    </style>
+<body class="w3-light-grey">
+<!-- Navigation Bar -->
+{{#admin}} {{> headerAdmin}} {{/admin}} {{^admin}} {{> header}} {{/admin}}
+<!-- Header -->
+<header class="w3-display-container w3-content" style="max-width: 1500px; min-height: 400px;">
+    <img
+            class="w3-image"
+            src="https://estaticos.muyinteresante.es/media/cache/1140x_thumb/uploads/images/article/6113c9635bafe88526636b24/galaxias-cercanas_0.jpg"
+            alt="The Hotel"
+            style="min-width: 1000px; height: 600px !important"
+            width="1500"
+    />
+    <div class="w3-display-left w3-col w3-margin" style="width: 95%;">
+        {{#nivelVuelo}}
+        <div class="w3-container w3-red w3-padding w3-margin-bottom">
+            <div>
+                El resultado de su chequeo medico le dio que su nivel de Vuelo es : {{nivelVuelo}}
+            </div>
+            
+        </div>
+        {{/nivelVuelo}}
+        <div class="w3-container w3-red w3-padding">
+            <h2><i class="fa fa-plane w3-margin-right"></i>Sus Reservas:</h2>
+        </div>
+        {{#datos}}
+            <table class="w3-table w3-light-grey">
+                <tr>
+                    <th>Codigo Comprobante</th>
+                    <th>Dia</th>
+                    <th>Duracion</th>
+                    <th>Horario</th>
+                    <th>Lugar de partida</th>
+                    <th>Lugar de destino</th>
+                    <th>Tipo de vuelo</th>
+                    <th>Tipo de Servicio</th>
+                    <th>Fila</th>
+                    <th>Columna</th>
+                    <th>Resumen</th>
+                </tr>
+                
+                <tr>
+                    <td>{{comprobante}}</td>
+                    <td>{{dia}}</td>
+                    <td>{{duracion}}</td>
+                    <td>{{horario}}</td>
+                    <td>{{origen}}</td>
+                    <td>{{destino}}</td>
+                    <td>{{tipo_vuelo}}</td>
+                    <td>{{tipo_servicio}}</td>
+                    <th>{{fila_asiento}}</th>
+                    <th>{{numero_asiento}}</th>
+                    <td><a href="/PDFPrinter/imprimirPdf?cantidad={{cantidad_pasajeros}}&comprobante={{comprobante}}&dia={{dia}}&origen={{origen}}&destino={{destino}}&tipo={{tipo_vuelo}}&tipo_servicio={{tipo_servicio}}&fila_asiento={{fila_asiento}}&numero_asiento={{numero_asiento}}" target="_blank">Imprimir</a></td>
+                </tr>
+               
+            </table>
+        {{/datos}}
+        {{^datos}}
+            <div style="background-color: whitesmoke; color: black;" class="w3-padding">No tiene reservas realizadas por el momento.</div>
+        {{/datos}}
+
+        
+        <div class="w3-container w3-red w3-padding" style="margin-top: 30px;">
+            <h2><i class="fa fa-plane w3-margin-right"></i>Pendientes de Pago:</h2>
+        </div>
+        {{#pendientes}}
+            <table class="w3-table w3-light-grey">
+                <tr>
+                    <th>Codigo Comprobante</th>
+                    <th>Dia</th>
+                    <th>Duracion</th>
+                    <th>Horario</th>
+                    <th>Lugar de partida</th>
+                    <th>Lugar de destino</th>
+                    <th>Tipo de vuelo</th>
+                    <th>Tipo de Servicio</th>
+                    <th>Fila</th>
+                    <th>Columna</th>
+                    <th>Resumen</th>
+                    <th>Check-in</th>
+                </tr>
+                
+                <tr>
+                    <td>{{comprobante}}</td>
+                    <td>{{dia}}</td>
+                    <td>{{duracion}}</td>
+                    <td>{{horario}}</td>
+                    <td>{{origen}}</td>
+                    <td>{{destino}}</td>
+                    <td>{{tipo_vuelo}}</td>
+                    <td>{{tipo_servicio}}</td>
+                    <th>{{fila_asiento}}</th>
+                    <th>{{numero_asiento}}</th>
+                    <td><a href="{{url}}">Pagar</a></td>
+                    <td><a href="/PDFPrinter/imprimirCheckIn?cantidad={{cantidad_pasajeros}}&comprobante={{comprobante}}&dia={{dia}}&origen={{origen}}&destino={{destino}}&tipo={{tipo_vuelo}}&tipo_servicio={{tipo_servicio}}&fila_asiento={{fila_asiento}}&numero_asiento={{numero_asiento}}" target="_blank">Imprimir</a></td>
+
+                </tr>
+               
+            </table>
+        {{/pendientes}}
+        {{^pendientes}}
+            <div style="background-color: whitesmoke; color: black;" class="w3-padding">No tiene reservas pendientes por el momento.</div>
+        {{/pendientes}}
+    </div>
+
+
+</header>
+
+<!-- Footer -->
+{{> footer}}
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>
